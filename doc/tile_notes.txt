@@ -1,0 +1,12 @@
+Separate models/tables for tile types, with shared tile functionality included in a module
+
+http://en.wikipedia.org/wiki/Mahjong_tiles
+
+TABLES          MODELS        INCLUDE
+circle_tiles    CircleTile    suit and rank stuff
+bamboo_tiles    BambooTile    suit and rank stuff
+character_tiles CharacterTile suit and rank stuff
+wind_tiles      WindTile      honor tile stuff
+dragon_tiles    DragonTile    honor tile stuff
+flower_tiles    FlowerTile    flower tile stuff (overall group, not particular flowery tiles)
+season_tiles    SeasonTile    flower tile stuff (overall group, not particular flowery tiles)
