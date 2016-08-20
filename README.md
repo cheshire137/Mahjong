@@ -15,3 +15,7 @@ You'll need Ruby 2+ and PostgreSQL.
     bundle exec rake test
 
 ## How Tiles are Positioned
+
+X coordinates are in black horizontally across the top, y coordinates are in pale blue vertically along the left, and z coordinates are in yellow.
+
+![Tile position diagram](https://raw.githubusercontent.com/cheshire137/Mahjong/master/tile-diagram.png)
