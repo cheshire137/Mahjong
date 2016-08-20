@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :layout do
     name 'Turtle'
-    tile_positions ''
+    tile_positions { File.read(Rails.root.join('layouts', 'turtle.txt')) }
   end
 
   factory :user do
