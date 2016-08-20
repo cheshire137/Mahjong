@@ -50,33 +50,18 @@ const matchTiles = function(tile1, tile2) {
   const props1 = tileMatchProperties(tile1)
   const props2 = tileMatchProperties(tile2)
   const tiles = `${props1.id}:${props1.coordinates};${props2.id}:${props2.coordinates}`
-  const csrfToken = document.querySelector('meta[name=csrf-token]').getAttribute('content')
   const url = `${props1.matchUrl}?tiles=${encodeURIComponent(tiles)}`
-  const options = {
-    method: 'POST',
-    // headers: {
-    //   'X-CSRF-Token': csrfToken
-    // },
-    data: {
-      authenticity_token: csrfToken
-    },
-    headers: {
-      'content-type': 'application/x-www-form-urlencoded; charset=UTF-8'
-    }
-  }
-  fetch(url, options).then(response => {
-    if (response.status !== 200) {
-      console.error('failed to match tiles', tiles, response.status, response.statusText)
-      return
-    }
-    response.json().then(json => {
-      console.log(json)
-      selectedTile = null
-      tile1.classList.remove('is-selected')
-      tile2.classList.remove('is-selected')
-      tile1.remove()
-      tile2.remove()
-    })
+  $.ajax({
+    url: url,
+    type: 'POST'
+  }).done(json => {
+    selectedTile = null
+    tile1.classList.remove('is-selected')
+    tile2.classList.remove('is-selected')
+    tile1.remove()
+    tile2.remove()
+  }).fail((jqXHR, status, error) => {
+    console.error('failed to match tiles', tiles, jqXHR, status, error)
   })
 }
 
@@ -97,11 +82,12 @@ const selectTile = function(event) {
   selectedTile = tile
 }
 
-const callback = function() {
+$(function() {
+  const csrfToken = document.querySelector('meta[name=csrf-token]').
+      getAttribute('content')
+  $.ajaxSetup({ headers: { 'X-CSRF-Token': csrfToken } })
   const links = document.querySelectorAll('a.mahjong-tile.selectable')
   links.forEach(link => {
     link.addEventListener('click', selectTile)
   })
-}
-
-document.addEventListener('DOMContentLoaded', callback)
+})
