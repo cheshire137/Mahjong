@@ -5,6 +5,13 @@ class Layout < ApplicationRecord
 
   has_many :games
 
+  def each_position
+    @positions ||= tile_positions.split(';')
+    @positions.each do |coordinates|
+      yield coordinates
+    end
+  end
+
   private
 
   def tile_positions_state

@@ -4,6 +4,8 @@ class Game < ApplicationRecord
   belongs_to :user
   belongs_to :layout
 
+  before_save :initialize_tiles, on: :create
+
   validates :user, presence: true
   validates :layout, presence: true
   validates :tiles, presence: true, allow_nil: false, allow_blank: true
@@ -31,6 +33,22 @@ class Game < ApplicationRecord
   def self.find_by_param(param)
     id, created_at = param.split(':')
     find(id)
+  end
+
+  def initialize_tiles
+    return unless layout
+    tiles = Tile.all
+    tile_counts = Hash.new(0)
+    tile_positions = []
+    layout.each_position do |coordinates|
+      tile = tiles.sample
+      while tile_counts[tile.id] == Tile::MAX_PER_GAME
+        tile = tiles.sample
+      end
+      tile_counts[tile.id] += 1
+      tile_positions << "#{tile.id}:#{coordinates}"
+    end
+    self.tiles = tile_positions.join(';')
   end
 
   private

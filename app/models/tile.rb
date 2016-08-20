@@ -1,4 +1,5 @@
 class Tile < ApplicationRecord
+  MAX_PER_GAME = 4
   CATEGORIES = %w(suit honor bonus).freeze
   SETS = %w(wind dragon flower season).freeze
   SUITS = %w(circle bamboo character).freeze
