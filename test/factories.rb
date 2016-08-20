@@ -1,5 +1,6 @@
 FactoryGirl.define do
   factory :layout do
+    name 'Turtle'
   end
 
   factory :user do

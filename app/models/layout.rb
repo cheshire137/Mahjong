@@ -1,6 +1,6 @@
 class Layout < ApplicationRecord
-  validates :tile_positions, presence: true, allow_nil: false,
-                             allow_blank: false
+  validates :name, presence: true
+  validates :tile_positions, presence: true
   validate :tile_positions_state
 
   private

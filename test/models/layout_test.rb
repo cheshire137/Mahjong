@@ -1,6 +1,12 @@
 require 'test_helper'
 
 class LayoutTest < ActiveSupport::TestCase
+  test 'requires name' do
+    layout = Layout.new
+    refute layout.valid?
+    assert_includes layout.errors.keys, :name
+  end
+
   test 'disallows blank tile_positions string' do
     layout = Layout.new(tile_positions: '')
     refute layout.valid?
