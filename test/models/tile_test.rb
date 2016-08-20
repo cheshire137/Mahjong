@@ -49,6 +49,18 @@ class TileTest < ActiveSupport::TestCase
     refute tile.dragon_tile?
   end
 
+  test 'validates set if honor category' do
+    tile = Tile.new(category: 'honor', set: 'heynow')
+    refute tile.valid?
+    assert_includes tile.errors.keys, :set
+  end
+
+  test 'validates set if bonus category' do
+    tile = Tile.new(category: 'bonus', set: 'heynow')
+    refute tile.valid?
+    assert_includes tile.errors.keys, :set
+  end
+
   test 'requires set if honor category' do
     tile = Tile.new(category: 'honor')
     refute tile.valid?
@@ -59,6 +71,18 @@ class TileTest < ActiveSupport::TestCase
     tile = Tile.new(category: 'bonus')
     refute tile.valid?
     assert_includes tile.errors.keys, :set
+  end
+
+  test 'requires suit if suit category' do
+    tile = Tile.new(category: 'suit')
+    refute tile.valid?
+    assert_includes tile.errors.keys, :suit
+  end
+
+  test 'validates suit if suit category' do
+    tile = Tile.new(category: 'suit', suit: 'fun')
+    refute tile.valid?
+    assert_includes tile.errors.keys, :suit
   end
 
   test 'requires number if suit category' do
