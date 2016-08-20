@@ -47,11 +47,17 @@ const matchTiles = function(tile1, tile2) {
   const props2 = tileMatchProperties(tile2)
   const tiles = `${props1.id}:${props1.coordinates};${props2.id}:${props2.coordinates}`
   const csrfToken = document.querySelector('meta[name=csrf-token]').getAttribute('content')
-  const url = `${props1.matchUrl}?authenticity_token=${encodeURIComponent(csrfToken)}&tiles=${encodeURIComponent(tiles)}`
+  const url = `${props1.matchUrl}?tiles=${encodeURIComponent(tiles)}`
   const options = {
     method: 'POST',
+    // headers: {
+    //   'X-CSRF-Token': csrfToken
+    // },
+    data: {
+      authenticity_token: csrfToken
+    },
     headers: {
-      'X-CSRF-Token': csrfToken
+      'content-type': 'application/x-www-form-urlencoded; charset=UTF-8'
     }
   }
   fetch(url, options).then(response => {
