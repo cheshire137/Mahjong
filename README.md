@@ -19,3 +19,8 @@ You'll need Ruby 2+ and PostgreSQL.
 X coordinates are in black horizontally across the top, y coordinates are in pale blue vertically along the left, and z coordinates are in yellow. See the coordinates in [layouts/turtle.txt](layouts/turtle.txt).
 
 ![Tile position diagram](https://raw.githubusercontent.com/cheshire137/Mahjong/master/tile-diagram.png)
+
+## Thanks
+
+- [taksuyu/tile-art](https://github.com/taksuyu/tile-art) for the tile images.
+- [Bulma.io](http://bulma.io/) for the CSS framework.
