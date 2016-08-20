@@ -77,6 +77,8 @@ class Tile < ApplicationRecord
         "flower#{FLOWER_NAMES.index(name) + 1}"
       elsif wind_tile?
         "wind#{name}"
+      elsif season_tile?
+        "season#{SEASON_NAMES.index(name) + 1}"
       end
     elsif suit_category?
       "#{suit[0..3]}#{number}"
