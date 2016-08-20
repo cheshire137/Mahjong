@@ -84,4 +84,13 @@ class GameTest < ActiveSupport::TestCase
     game.save!
     assert_equal :won, game.reload.state
   end
+
+  test 'each_tile loops over each tile in tiles' do
+    game = create(:game)
+    count = 0
+    game.each_tile do |placed_tile|
+      count += 1
+    end
+    assert_equal 144, count
+  end
 end

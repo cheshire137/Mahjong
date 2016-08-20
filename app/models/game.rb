@@ -58,15 +58,15 @@ class Game < ApplicationRecord
   def each_tile
     unless defined? @placed_tiles
       positions = tiles.split(';')
-      tiles_and_coordinates = {}
+      coordinates_and_tiles = {}
       positions.each do |tile_and_coordinates|
         tile_id, coordinates = tile_and_coordinates.split(':')
         tile_id = tile_id.to_i
-        tiles_and_coordinates[tile_id] = coordinates
+        coordinates_and_tiles[coordinates] = tile_id
       end
-      tiles_by_id = Tile.where(id: tiles_and_coordinates.keys).
+      tiles_by_id = Tile.where(id: coordinates_and_tiles.values.uniq).
                          map { |t| [t.id, t] }.to_h
-      @placed_tiles = tiles_and_coordinates.map do |tile_id, coordinates|
+      @placed_tiles = coordinates_and_tiles.map do |coordinates, tile_id|
         PlacedTile.new(tiles_by_id[tile_id], coordinates)
       end
     end
