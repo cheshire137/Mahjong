@@ -1,3 +1,5 @@
+$background-transition: background 0.1s linear;
+
 .game-board {
   position: relative;
   left: 2vw;
@@ -11,20 +13,61 @@
   position: absolute;
   display: inline-block;
   overflow: hidden;
-  background-color: #fff;
-  box-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+
+  &.selectable {
+    cursor: pointer;
+  }
+
+  &.no-image,
+  &.has-image .tile-image {
+    background-color: #fff;
+  }
 
   &.no-image {
+    box-shadow: 1px 1px 3px rgba(0,0,0,0.3);
     padding: 1vw 1vh;
     border-right: 4px solid #fafafa;
     border-bottom: 4px solid #fafafa;
+    -webkit-transition: $background-transition;
+    -moz-transition: $background-transition;
+    -ms-transition: $background-transition;
+    -o-transition: $background-transition;
+    transition: $background-transition;
+
+    &.selectable {
+      &:hover, &:focus {
+        background-color: #EEFAFB;
+      }
+    }
   }
 
   &.has-image {
     border-radius: 1vw;
+    text-align: center;
+
+    .tile-image {
+      max-height: 100%;
+      -webkit-transition: $background-transition;
+      -moz-transition: $background-transition;
+      -ms-transition: $background-transition;
+      -o-transition: $background-transition;
+      transition: $background-transition;
+    }
+
+    &.selectable {
+      &:hover, &:focus {
+        .tile-image {
+          background-color: #42afe3;
+        }
+      }
+    }
   }
 
-  &.selectable {
-    background-color: #EEFAFB;
+  &.is-selected.no-image,
+  &.is-selected.has-image .tile-image {
+    background-color: #fce473;
+  }
+
+  &.is-underneath {
   }
 }

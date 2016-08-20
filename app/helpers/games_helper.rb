@@ -9,6 +9,8 @@ module GamesHelper
     end
     if placed_tile.selectable?
       css << " selectable"
+    elsif placed_tile.underneath_another?
+      css << " is-underneath"
     end
     if file
       css << " has-image"
@@ -36,5 +38,13 @@ module GamesHelper
     height = "height: #{relative_height}vh"
 
     [x_position, y_position, z_position, width, height].join('; ')
+  end
+
+  def tile_tag(placed_tile)
+    if placed_tile.selectable?
+      %Q(a href="#" data-tile-id="#{placed_tile.tile.id}" data-coords="#{placed_tile.coordinates}")
+    else
+      'div'
+    end.html_safe
   end
 end
