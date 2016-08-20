@@ -1,11 +1,26 @@
+let selectedTile = null
+
+const isMatch = function(tileA, tileB) {
+  return false
+}
+
 const selectTile = function(event) {
   event.preventDefault()
-  const link = event.currentTarget
-  const tileID = link.getAttribute('data-tile-id')
-  const coordinates = link.getAttribute('data-coords')
+  const tile = event.currentTarget
+  if (selectedTile !== null) {
+    if (isMatch(selectedTile, tile)) {
+      alert('match!')
+    } else {
+      selectedTile.classList.remove('is-selected')
+      selectedTile = null
+    }
+  }
+  const tileID = tile.getAttribute('data-tile-id')
+  const coordinates = tile.getAttribute('data-coords')
   console.log(tileID, coordinates)
-  link.classList.add('is-selected')
-  link.blur()
+  tile.classList.add('is-selected')
+  tile.blur()
+  selectedTile = tile
 }
 
 const callback = function() {

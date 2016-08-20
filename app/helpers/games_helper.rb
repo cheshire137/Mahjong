@@ -42,7 +42,8 @@ module GamesHelper
 
   def tile_tag(placed_tile)
     if placed_tile.selectable?
-      %Q(a href="#" data-tile-id="#{placed_tile.tile.id}" data-coords="#{placed_tile.coordinates}")
+      tile = placed_tile.tile
+      %Q(a href="#" data-tile-id="#{tile.id}" data-coords="#{placed_tile.coordinates}" data-set="#{tile.set}" data-suit="#{tile.suit}" data-category="#{tile.category}" data-number="#{tile.number}" data-name="#{tile.name}")
     else
       'div'
     end.html_safe
