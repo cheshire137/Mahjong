@@ -1,6 +1,6 @@
 <div class="game-board">
   <% @game.each_tile do |placed_tile| %>
-    <div class="<%= tile_class(placed_tile.tile) %>" style="<%= tile_style(placed_tile) %>">
+    <div class="<%= tile_class(placed_tile) %>" style="<%= tile_style(placed_tile) %>">
       <%= placed_tile.tile.to_s %>
     </div>
   <% end %>

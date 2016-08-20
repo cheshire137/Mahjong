@@ -16,4 +16,8 @@
   border-right: 4px solid #fafafa;
   border-bottom: 4px solid #fafafa;
   padding: 1vw 1vh;
+
+  &.selectable {
+    background-color: #EEFAFB;
+  }
 }

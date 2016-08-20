@@ -1,10 +1,14 @@
 module GamesHelper
-  def tile_class(tile)
+  def tile_class(placed_tile)
+    tile = placed_tile.tile
     css = "mahjong-tile category-#{tile.category}"
     if tile.honor_or_bonus_category?
       css << " name-#{tile.name} set-#{tile.set}"
     elsif tile.suit_category?
       css << " suit-#{tile.suit} number-#{tile.number}"
+    end
+    if placed_tile.selectable?
+      css << " selectable"
     end
     css
   end
@@ -20,10 +24,10 @@ module GamesHelper
 
     z_position = "z-index: #{placed_tile.z}"
 
-    relative_width = 100.0 / game.column_count
+    relative_width = (100.0 / game.column_count) * 0.94
     width = "width: #{relative_width}vw"
 
-    relative_height = 100.0 / game.row_count
+    relative_height = (100.0 / game.row_count) * 0.94
     height = "height: #{relative_height}vh"
 
     [x_position, y_position, z_position, width, height].join('; ')
