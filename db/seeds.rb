@@ -28,8 +28,9 @@ end
 puts '-----------------------'
 puts "#{Tile.count} tiles created"
 
-turtle_path = Rails.root.join('layouts', 'turtle.txt')
-layout = Layout.create!(name: 'Turtle', tile_positions: File.read(turtle_path))
+lines = File.readlines(Rails.root.join('layouts', 'turtle.txt'))
+positions = lines.map(&:strip).join('')
+layout = Layout.create!(name: 'Turtle', tile_positions: positions)
 puts "Created layout #{layout.name}"
 
 password = 'password123'

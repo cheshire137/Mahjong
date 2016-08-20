@@ -1,7 +1,10 @@
 FactoryGirl.define do
   factory :layout do
     name 'Turtle'
-    tile_positions { File.read(Rails.root.join('layouts', 'turtle.txt')) }
+    tile_positions {
+      lines = File.readlines(Rails.root.join('layouts', 'turtle.txt'))
+      lines.map(&:strip).join('')
+    }
   end
 
   factory :user do
@@ -11,5 +14,6 @@ FactoryGirl.define do
 
   factory :game do
     user
+    layout
   end
 end
