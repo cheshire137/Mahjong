@@ -31,3 +31,7 @@ puts "#{Tile.count} tiles created"
 turtle_path = Rails.root.join('layouts', 'turtle.txt')
 layout = Layout.create!(name: 'Turtle', tile_positions: File.read(turtle_path))
 puts "Created layout #{layout.name}"
+
+password = 'password123'
+user = User.create!(email: 'test@example.com', password: password)
+puts "Created user #{user.email} with password: #{password}"
