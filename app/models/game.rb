@@ -102,6 +102,11 @@ class Game < ApplicationRecord
     end
   end
 
+  def tile?(x, y, z)
+    index = tiles =~ /\d+:#{x},#{y},#{z}/
+    !index.nil?
+  end
+
   private
 
   def tile_state

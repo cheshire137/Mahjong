@@ -93,4 +93,14 @@ class GameTest < ActiveSupport::TestCase
     end
     assert_equal 144, count
   end
+
+  test "tile? returns true when given coordinates are occupied" do
+    game = create(:game)
+    assert game.tile?(2, 14, 0)
+    assert game.tile?(12, 4, 2)
+    assert game.tile?(18, 6, 1)
+
+    refute game.tile?(3, 1, 1)
+    refute game.tile?(0, 7, 1)
+  end
 end
