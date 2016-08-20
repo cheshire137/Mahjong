@@ -13,9 +13,16 @@
   overflow: hidden;
   background-color: #fff;
   box-shadow: 1px 1px 3px rgba(0,0,0,0.3);
-  border-right: 4px solid #fafafa;
-  border-bottom: 4px solid #fafafa;
-  padding: 1vw 1vh;
+
+  &.no-image {
+    padding: 1vw 1vh;
+    border-right: 4px solid #fafafa;
+    border-bottom: 4px solid #fafafa;
+  }
+
+  &.has-image {
+    border-radius: 1vw;
+  }
 
   &.selectable {
     background-color: #EEFAFB;

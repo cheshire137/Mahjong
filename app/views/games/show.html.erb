@@ -1,7 +1,12 @@
 <div class="game-board">
   <% @game.each_tile do |placed_tile| %>
-    <div class="<%= tile_class(placed_tile) %>" style="<%= tile_style(placed_tile) %>">
-      <%= placed_tile.tile.to_s %>
+    <% file = placed_tile.tile.image_file %>
+    <div class="<%= tile_class(placed_tile, file) %>" style="<%= tile_style(placed_tile) %>">
+      <% if file %>
+        <%= image_tag "tiles/#{file}", alt: placed_tile.tile %>
+      <% else %>
+        <%= placed_tile.tile %>
+      <% end %>
     </div>
   <% end %>
 </div>

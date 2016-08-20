@@ -1,5 +1,5 @@
 module GamesHelper
-  def tile_class(placed_tile)
+  def tile_class(placed_tile, file)
     tile = placed_tile.tile
     css = "mahjong-tile category-#{tile.category}"
     if tile.honor_or_bonus_category?
@@ -9,6 +9,11 @@ module GamesHelper
     end
     if placed_tile.selectable?
       css << " selectable"
+    end
+    if file
+      css << " has-image"
+    else
+      css << " no-image"
     end
     css
   end
