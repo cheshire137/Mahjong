@@ -9,14 +9,23 @@ module GamesHelper
     css
   end
 
-  def tile_style(placed_tile, max_x, max_y)
-    relative_x = (placed_tile.x.to_f / max_x) * 100
+  def tile_style(placed_tile)
+    game = placed_tile.game
+
+    relative_x = (placed_tile.x.to_f / (game.max_x + 3)) * 100
     x_position = "left: #{relative_x}%"
 
-    relative_y = (placed_tile.y.to_f / max_y) * 100
+    relative_y = (placed_tile.y.to_f / (game.max_y + 3)) * 100
     y_position = "top: #{relative_y}%"
 
     z_position = "z-index: #{placed_tile.z}"
-    [x_position, y_position, z_position].join('; ')
+
+    relative_width = 100.0 / game.column_count
+    width = "width: #{relative_width}vw"
+
+    relative_height = 100.0 / game.row_count
+    height = "height: #{relative_height}vh"
+
+    [x_position, y_position, z_position, width, height].join('; ')
   end
 end

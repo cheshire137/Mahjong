@@ -73,6 +73,14 @@ class Game < ApplicationRecord
     @max_y = max
   end
 
+  def row_count
+    (max_y / 2.0) + 1
+  end
+
+  def column_count
+    (max_x / 2.0) + 1
+  end
+
   def each_tile
     unless defined? @placed_tiles
       positions = tiles.split(';')
@@ -85,7 +93,8 @@ class Game < ApplicationRecord
       tiles_by_id = Tile.where(id: coordinates_and_tiles.values.uniq).
                          map { |t| [t.id, t] }.to_h
       @placed_tiles = coordinates_and_tiles.map do |coordinates, tile_id|
-        PlacedTile.new(tiles_by_id[tile_id], coordinates)
+        PlacedTile.new(tiles_by_id[tile_id], coordinates: coordinates,
+                       game: self)
       end
     end
     @placed_tiles.each do |placed_tile|

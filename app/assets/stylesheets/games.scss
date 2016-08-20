@@ -1,12 +1,19 @@
 .game-board {
-
+  position: relative;
+  left: 2vw;
+  top: 2vh;
+  width: 98vw;
+  height: 98vh;
+  overflow: hidden;
 }
 
 .mahjong-tile {
   position: absolute;
-  width: 10vw;
-  height: 22vh;
   display: inline-block;
+  overflow: hidden;
   background-color: #fff;
   box-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+  border-right: 4px solid #fafafa;
+  border-bottom: 4px solid #fafafa;
+  padding: 1vw 1vh;
 }
