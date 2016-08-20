@@ -64,7 +64,7 @@ class Tile < ApplicationRecord
   end
 
   def to_s
-    str = category
+    str = "#{category}"
     if honor_or_bonus_category?
       str << ": #{name} #{set}"
     elsif suit_category?
