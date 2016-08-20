@@ -7,11 +7,10 @@ class Layout < ApplicationRecord
 
   def tile_positions_state
     return unless tile_positions
-    index = tile_positions =~ /(t:\d+,\d+,\d+;?)+/
+    index = tile_positions =~ /(\d+,\d+,\d+;?)+/
     unless index == 0
       errors.add(:tile_positions,
-                 'must be in the format t:x,y,z;id:x,y,z;... with ' +
-                 'numeric values')
+                 'must be in the format x,y,z;x,y,z;... with numeric values')
     end
   end
 end
