@@ -63,6 +63,26 @@ class Tile < ApplicationRecord
     bonus_category? && set == 'season'
   end
 
+  def image_file
+    name = image_name
+    return unless name.present?
+    "#{name}.svg"
+  end
+
+  def image_name
+    if honor_or_bonus_category?
+      if dragon_tile?
+        "drag#{name}"
+      elsif flower_tile?
+        "flower#{FLOWER_NAMES.index(name) + 1}"
+      elsif wind_tile?
+        "wind#{name}"
+      end
+    elsif suit_category?
+      "#{suit[0..3]}#{number}"
+    end
+  end
+
   def to_s
     str = "#{category}"
     if honor_or_bonus_category?
