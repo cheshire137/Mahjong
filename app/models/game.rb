@@ -2,8 +2,10 @@ class Game < ApplicationRecord
   STATES = {:in_progress => 0, :won => 1, :lost => 2}.freeze
 
   belongs_to :user
+  belongs_to :layout
 
   validates :user, presence: true
+  validates :layout, presence: true
   validates :tiles, presence: true, allow_nil: false, allow_blank: true
   validate :tile_state
 

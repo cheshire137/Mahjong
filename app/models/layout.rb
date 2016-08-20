@@ -3,6 +3,8 @@ class Layout < ApplicationRecord
   validates :tile_positions, presence: true
   validate :tile_positions_state
 
+  has_many :games
+
   private
 
   def tile_positions_state
