@@ -1,7 +1,29 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
+Tile::SUITS.each do |suit|
+  (1..9).each do |number|
+    tile = Tile.create!(number: number, suit: suit, category: 'suit')
+    puts "Created #{tile}"
+  end
+end
+
+Tile::WIND_NAMES.each do |name|
+  tile = Tile.create!(name: name, set: 'wind', category: 'honor')
+  puts "Created #{tile}"
+end
+
+Tile::DRAGON_NAMES.each do |name|
+  tile = Tile.create!(name: name, set: 'dragon', category: 'honor')
+  puts "Created #{tile}"
+end
+
+Tile::FLOWER_NAMES.each do |name|
+  tile = Tile.create!(name: name, set: 'flower', category: 'bonus')
+  puts "Created #{tile}"
+end
+
+Tile::SEASON_NAMES.each do |name|
+  tile = Tile.create!(name: name, set: 'season', category: 'bonus')
+  puts "Created #{tile}"
+end
+
+puts '-----------------------'
+puts "#{Tile.count} tiles created"
