@@ -51,6 +51,30 @@ class Game < ApplicationRecord
     self.tiles = tile_positions.join(';')
   end
 
+  def tile_count
+    tiles.split(';').size
+  end
+
+  def each_tile
+    unless defined? @placed_tiles
+      positions = tiles.split(';')
+      tiles_and_coordinates = {}
+      positions.each do |tile_and_coordinates|
+        tile_id, coordinates = tile_and_coordinates.split(':')
+        tile_id = tile_id.to_i
+        tiles_and_coordinates[tile_id] = coordinates
+      end
+      tiles_by_id = Tile.where(id: tiles_and_coordinates.keys).
+                         map { |t| [t.id, t] }.to_h
+      @placed_tiles = tiles_and_coordinates.map do |tile_id, coordinates|
+        PlacedTile.new(tiles_by_id[tile_id], coordinates)
+      end
+    end
+    @placed_tiles.each do |placed_tile|
+      yield placed_tile
+    end
+  end
+
   private
 
   def tile_state

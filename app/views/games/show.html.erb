@@ -1,1 +1,4 @@
-Game: <pre><%= @game.inspect.gsub(/</, '&lt;') %></pre>
+<p><%= pluralize @game.tile_count, 'tile' %></p>
+<% @game.each_tile do |placed_tile| %>
+  <%= placed_tile.tile.to_s %><br>
+<% end %>
