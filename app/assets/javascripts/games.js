@@ -46,14 +46,14 @@ const matchTiles = function(tile1, tile2) {
   const props1 = tileMatchProperties(tile1)
   const props2 = tileMatchProperties(tile2)
   const tiles = `${props1.id}:${props1.coordinates};${props2.id}:${props2.coordinates}`
-  const url = `${props1.matchUrl}?tiles=${encodeURIComponent(tiles)}`
+  const csrfToken = document.querySelector('meta[name=csrf-token]').getAttribute('content')
+  const url = `${props1.matchUrl}?authenticity_token=${encodeURIComponent(csrfToken)}&tiles=${encodeURIComponent(tiles)}`
   const options = {
     method: 'POST',
     headers: {
-      'X-CSRF-Token': document.querySelector('meta[name=csrf-token]').getAttribute('content')
+      'X-CSRF-Token': csrfToken
     }
   }
-  console.log(document.querySelector('meta[name=csrf-token]').getAttribute('content'))
   fetch(url, options).then(response => {
     if (response.status !== 200) {
       console.error('failed to match tiles', tiles, response.status, response.statusText)
