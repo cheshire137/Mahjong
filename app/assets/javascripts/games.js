@@ -1,12 +1,13 @@
 let selectedTile = null
 
 const tileProperties = function(tile) {
+  const coordinates = tile.getAttribute('data-coords')
   const category = tile.getAttribute('data-category')
   const set = tile.getAttribute('data-set')
   const suit = tile.getAttribute('data-suit')
   const number = tile.getAttribute('data-number')
   const name = tile.getAttribute('data-name')
-  return { category, set, suit, number, name }
+  return { coordinates, category, set, suit, number, name }
 }
 
 const tileMatchProperties = function(tile) {
@@ -20,6 +21,9 @@ const tileMatchProperties = function(tile) {
 const isMatch = function(tileA, tileB) {
   const propsA = tileProperties(tileA)
   const propsB = tileProperties(tileB)
+  if (propsA.coordinates === propsB.coordinates) {
+    return false
+  }
   if (propsA.category !== propsB.category) {
     return false
   }
