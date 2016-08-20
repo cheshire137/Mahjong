@@ -7,7 +7,7 @@ development:
   username: mahjong
   password: M4hj0ng3r
   host: localhost
-#  socket: 
+#  socket:
 #  port: 3306
 
 # Warning: The database defined as "test" will be erased and
@@ -27,6 +27,3 @@ test:
 production:
   adapter: mysql
   database: mahjong_production
-  username: mahjong
-  password: M4hj0ng3r
-  host: localhost
