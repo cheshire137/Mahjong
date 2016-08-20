@@ -13,3 +13,5 @@ You'll need Ruby 2+ and PostgreSQL.
 
     bundle install
     bundle exec rake test
+
+## How Tiles are Positioned
