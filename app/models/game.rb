@@ -9,6 +9,13 @@ class Game < ApplicationRecord
   validates :tiles, presence: true, allow_nil: false, allow_blank: true
   validate :tile_state
 
+  scope :in_progress, ->{ where(state: STATES[:in_progress]) }
+  scope :won, ->{ where(state: STATES[:in_progress]) }
+  scope :lost, ->{ where(state: STATES[:lost]) }
+  scope :complete, ->{ where.not(state: STATES[:in_progress]) }
+  scope :for_user, ->(user) { where(user: user) }
+  scope :most_recent, ->{ order("updated_at DESC") }
+
   def state
     STATES.key(self[:state])
   end
