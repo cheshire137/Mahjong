@@ -109,6 +109,12 @@ class Game < ApplicationRecord
     !index.nil?
   end
 
+  def match_tiles(tile1, tile2)
+    new_positions = tiles.split(';').
+        reject { |position| position == tile1 || position == tile2 }
+    self.tiles = new_positions.join(';')
+  end
+
   private
 
   def tile_state

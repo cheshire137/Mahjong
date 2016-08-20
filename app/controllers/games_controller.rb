@@ -16,6 +16,20 @@ class GamesController < ApplicationController
     @game = current_game
   end
 
+  def match
+    @game = current_game
+    @game.match_tiles(*params[:tiles].split(';'))
+    respond_to do |format|
+      if @game.save
+        json = {tiles: @game.tiles}
+        format.json { render json: json }
+      else
+        json = {errors: @game.errors.full_messages}
+        format.json { render json: json, status: :unprocessable_entity }
+      end
+    end
+  end
+
   private
 
   def current_game
