@@ -16,8 +16,8 @@ ActiveRecord::Schema.define(version: 20160820150927) do
   enable_extension "plpgsql"
 
   create_table "tiles", force: :cascade do |t|
-    t.string  "name",     null: false
     t.string  "category", null: false
+    t.string  "name"
     t.integer "number"
     t.string  "suit"
     t.string  "set"

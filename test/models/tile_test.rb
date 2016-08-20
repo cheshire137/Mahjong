@@ -1,8 +1,14 @@
 require 'test_helper'
 
 class TileTest < ActiveSupport::TestCase
-  test 'requires name' do
-    tile = Tile.new
+  test 'requires name for honor category' do
+    tile = Tile.new(category: 'honor')
+    refute tile.valid?
+    assert_includes tile.errors.keys, :name
+  end
+
+  test 'requires name for bonus category' do
+    tile = Tile.new(category: 'bonus')
     refute tile.valid?
     assert_includes tile.errors.keys, :name
   end
