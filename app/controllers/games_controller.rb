@@ -20,6 +20,11 @@ class GamesController < ApplicationController
 
   def current_game
     return @current_game if defined? @current_game
-    @current_game = Game.find_by_param(params[:id])
+    game = Game.find_by_param(params[:id])
+    unless game
+      redirect_to games_path, alert: "That game does not exist."
+      return
+    end
+    @current_game = game
   end
 end

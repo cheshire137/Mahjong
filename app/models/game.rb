@@ -33,6 +33,8 @@ class Game < ApplicationRecord
   def self.find_by_param(param)
     id, created_at = param.split(':')
     find(id)
+  rescue ActiveRecord::RecordNotFound
+    nil
   end
 
   def initialize_tiles
