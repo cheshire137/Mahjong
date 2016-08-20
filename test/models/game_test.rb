@@ -103,4 +103,19 @@ class GameTest < ActiveSupport::TestCase
     refute game.tile?(3, 1, 1)
     refute game.tile?(0, 7, 1)
   end
+
+  test 'populates tiles on create' do
+    game = build(:game)
+    assert game.tiles.blank?
+    assert game.save
+    refute game.tiles.blank?
+  end
+
+  test 'does not change tiles on update' do
+    game = create(:game)
+    before_value = game.reload.tiles
+    game.updated_at = 1.day.ago
+    assert game.save
+    assert_equal before_value, game.reload.tiles
+  end
 end

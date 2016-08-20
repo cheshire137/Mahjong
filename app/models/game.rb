@@ -4,7 +4,7 @@ class Game < ApplicationRecord
   belongs_to :user
   belongs_to :layout
 
-  before_save :initialize_tiles, on: :create
+  before_create :initialize_tiles
 
   validates :user, presence: true
   validates :layout, presence: true
