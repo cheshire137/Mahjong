@@ -55,6 +55,24 @@ class Game < ApplicationRecord
     tiles.split(';').size
   end
 
+  def max_x
+    return @max_x if defined? @max_x
+    max = -1
+    each_tile do |placed_tile|
+      max = placed_tile.x if placed_tile.x > max
+    end
+    @max_x = max
+  end
+
+  def max_y
+    return @max_y if defined? @max_y
+    max = -1
+    each_tile do |placed_tile|
+      max = placed_tile.y if placed_tile.y > max
+    end
+    @max_y = max
+  end
+
   def each_tile
     unless defined? @placed_tiles
       positions = tiles.split(';')

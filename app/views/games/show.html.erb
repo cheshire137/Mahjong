@@ -1,4 +1,8 @@
 <p><%= pluralize @game.tile_count, 'tile' %></p>
-<% @game.each_tile do |placed_tile| %>
-  <%= placed_tile.tile.to_s %><br>
-<% end %>
+<div class="game-board">
+  <% @game.each_tile do |placed_tile| %>
+    <div class="<%= tile_class(placed_tile.tile) %>" style="<%= tile_style(placed_tile, @game.max_x, @game.max_y) %>">
+      <%= placed_tile.tile.to_s %>
+    </div>
+  <% end %>
+</div>
