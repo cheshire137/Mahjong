@@ -24,6 +24,15 @@ class Game < ApplicationRecord
     self[:state] = STATES[state.to_sym]
   end
 
+  def to_param
+    "#{id}:#{created_at.to_i}"
+  end
+
+  def self.find_by_param(param)
+    id, created_at = param.split(':')
+    find(id)
+  end
+
   private
 
   def tile_state
