@@ -36,6 +36,17 @@ class GamesControllerTest < ActionController::TestCase
     end
   end
 
+  test 'cannot create a new game when you have 5 in progress' do
+    user = create(:user)
+    5.times { create(:game, user: user) }
+
+    sign_in user
+    assert_no_difference 'Game.count' do
+      post :create
+      assert_redirected_to games_path
+    end
+  end
+
   test 'cannot go to game page when not signed in' do
     game = create(:game)
     get :show, params: {id: game.id}

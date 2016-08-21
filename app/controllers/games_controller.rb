@@ -23,6 +23,13 @@ class GamesController < ApplicationController
   end
 
   def create
+    active_game_count = Game.for_user(current_user).in_progress.most_recent.
+                             count
+    if active_game_count >= 5
+      redirect_to games_path, alert: 'Please finish one of your active ' +
+          'games first.'
+      return
+    end
     game = Game.new(layout: Layout.first, user: current_user)
     game.initialize_tiles
     game.save!
