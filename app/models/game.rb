@@ -40,6 +40,7 @@ class Game < ApplicationRecord
   def initialize_tiles
     return unless layout
     tiles = Tile.all
+    return if tiles.empty?
     tile_counts = Hash.new(0)
     tile_positions = []
     layout.each_position do |coordinates|

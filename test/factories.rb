@@ -15,5 +15,6 @@ FactoryGirl.define do
   factory :game do
     user
     layout
+    after(:build) { |game| Tile.create_all_tiles if Tile.count < 1 }
   end
 end

@@ -94,4 +94,28 @@ class Tile < ApplicationRecord
     end
     str
   end
+
+  def self.create_all_tiles
+    SUITS.each do |suit|
+      (1..9).each do |number|
+        create!(number: number, suit: suit, category: 'suit')
+      end
+    end
+
+    WIND_NAMES.each do |name|
+      create!(name: name, set: 'wind', category: 'honor')
+    end
+
+    DRAGON_NAMES.each do |name|
+      create!(name: name, set: 'dragon', category: 'honor')
+    end
+
+    FLOWER_NAMES.each do |name|
+      create!(name: name, set: 'flower', category: 'bonus')
+    end
+
+    SEASON_NAMES.each do |name|
+      create!(name: name, set: 'season', category: 'bonus')
+    end
+  end
 end
