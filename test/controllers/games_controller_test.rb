@@ -26,4 +26,13 @@ class GamesControllerTest < ActionController::TestCase
       assert_redirected_to game_path(Game.last)
     end
   end
+
+  test 'can create a new game' do
+    user = create(:user)
+    sign_in user
+    assert_difference 'user.games.count' do
+      post :create
+      assert_redirected_to game_path(Game.last)
+    end
+  end
 end
