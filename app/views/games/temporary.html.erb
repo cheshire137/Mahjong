@@ -9,7 +9,7 @@
     <%= link_to "Sign up", new_user_registration_path %>
   </p>
   <hr>
-  <div id="game-state">
+  <div id="game-state" class="game-state">
     <%= render partial: 'games/state', locals: {game: @game} %>
   </div>
   <%= render partial: 'games/controls', locals: {game: @game, image: @image} %>

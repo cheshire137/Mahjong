@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   devise_for :users, controllers: {registrations: 'users/registrations'}
 
-  resources :games, only: [:index, :show] do
+  resources :games, only: [:index, :show, :create] do
     collection do
       get :temporary
       post :temporary_match

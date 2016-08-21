@@ -11,7 +11,7 @@
     <%= link_to 'Sign out', destroy_user_session_path %>
   </p>
   <hr>
-  <div id="game-state">
+  <div id="game-state" class="game-state">
     <%= render partial: 'games/state', locals: {game: @game} %>
   </div>
   <%= render partial: 'games/controls', locals: {game: @game, image: @image} %>

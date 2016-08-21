@@ -3,6 +3,14 @@
     <h1 class="title">Mahjong</h1>
     <div class="columns">
       <div class="column">
+        <%= form_for(Game.new) do |f| %>
+          <%= f.submit 'New Game', class: 'button is-success is-large' %>
+        <% end %>
+      </div>
+    </div>
+    <hr>
+    <div class="columns">
+      <div class="column is-5">
         <h2 class="subtitle">Continue Playing</h2>
         <ul>
           <% @active_games.each do |game| %>
@@ -24,7 +32,7 @@
         <% end %>
       </div>
       <% if @completed_count > 0 %>
-        <div class="column">
+        <div class="column is-5 is-offset-1">
           <h2 class="subtitle">Statistics</h2>
           <p>
             You have finished <strong><%= @completed_count %></strong>

@@ -20,6 +20,13 @@ class GamesController < ApplicationController
     @lose_count = Game.for_user(current_user).lost.count
   end
 
+  def create
+    game = Game.new(layout: Layout.first, user: current_user)
+    game.initialize_tiles
+    game.save!
+    redirect_to game
+  end
+
   def temporary
     layout = if session[:layout_id]
       Layout.find(session[:layout_id])
