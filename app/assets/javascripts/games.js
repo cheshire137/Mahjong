@@ -11,11 +11,11 @@
 
   function tileCoordinates(tile) {
     const coordinates = tile.getAttribute('data-coords')
-    var [x, y, z] = coordinates.split(',')
-    x = parseInt(x, 10)
-    y = parseInt(y, 10)
-    z = parseInt(z, 10)
-    return { x, y, z }
+    var coordsList = coordinates.split(',')
+    const x = parseInt(coordsList[0], 10)
+    const y = parseInt(coordsList[1], 10)
+    const z = parseInt(coordsList[2], 10)
+    return { x: x, y: y, z: z }
   }
 
   function sortByCoordinates(a, b) {
@@ -128,16 +128,16 @@
     }
 
     tiles.forEach(function(tile) {
-      tile.style.width = `${scaledW}px`
-      tile.style.height = `${scaledH}px`
+      tile.style.width = scaledW + 'px'
+      tile.style.height = scaledH + 'px'
 
       const coordinates = tileCoordinates(tile)
       if (coordinates.z > 0) {
         const image = tile.querySelector('.tile-image')
         const factor = coordinates.z * 2
-        image.style.marginLeft = `-${factor}px`
-        image.style.marginTop = `-${factor}px`
-        image.style.boxShadow = `3px 3px 3px rgba(0, 0, 0, ${0.3 * coordinates.z})`
+        image.style.marginLeft = '-' + factor + 'px'
+        image.style.marginTop = '-' + factor + 'px'
+        image.style.boxShadow = '3px 3px 3px rgba(0, 0, 0, ' + (0.3 * coordinates.z) + ')'
       }
 
       tile.classList.add('is-sized')
@@ -151,14 +151,25 @@
     const suit = tile.getAttribute('data-suit')
     const number = tile.getAttribute('data-number')
     const name = tile.getAttribute('data-name')
-    return { coordinates, category, set, suit, number, name }
+    return {
+      coordinates: coordinates,
+      category: category,
+      set: set,
+      suit: suit,
+      number: number,
+      name: name
+    }
   }
 
   function tileMatchProperties(tile) {
     const id = tile.getAttribute('data-tile-id')
     const coordinates = tile.getAttribute('data-coords')
     const matchUrl = tile.getAttribute('data-match-url')
-    return { id, coordinates, matchUrl }
+    return {
+      id: id,
+      coordinates: coordinates,
+      matchUrl: matchUrl
+    }
   }
 
   function isMatch(tileA, tileB) {
@@ -193,9 +204,9 @@
     const props1 = tileMatchProperties(tile1)
     const props2 = tileMatchProperties(tile2)
     const gameBoard = document.getElementById('game-board')
-    const tiles = `${props1.id}:${props1.coordinates};${props2.id}:${props2.coordinates}`
+    const tiles = props1.id + ':' + props1.coordinates + ';' + props2.id + ':' + props2.coordinates
     const joiner = props1.matchUrl.indexOf('?') > -1 ? '&' : '?'
-    const url = `${props1.matchUrl}${joiner}tiles=${encodeURIComponent(tiles)}`
+    const url = props1.matchUrl + joiner + 'tiles=' + encodeURIComponent(tiles)
     const data = {}
     if (gameBoard.hasAttribute('data-tiles')) {
       data.previous_tiles = gameBoard.getAttribute('data-tiles')
