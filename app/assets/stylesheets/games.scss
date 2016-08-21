@@ -22,6 +22,10 @@ $background-transition: background 0.1s linear;
 
   &.selectable {
     cursor: pointer;
+
+    .tile-image {
+      background-color: #fff;
+    }
   }
 
   &.set-season {
@@ -32,7 +36,7 @@ $background-transition: background 0.1s linear;
 
   .tile-image {
     border-radius: 1vw;
-    background-color: #fff;
+    background-color: #efefef;
     max-height: 97%;
     -webkit-transition: $background-transition;
     -moz-transition: $background-transition;
