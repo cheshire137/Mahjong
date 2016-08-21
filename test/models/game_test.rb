@@ -160,4 +160,23 @@ class GameTest < ActiveSupport::TestCase
     refute game.tiles.include?(tile1)
     refute game.tiles.include?(tile2)
   end
+
+  test 'match_tiles will not remove an invalid match from tiles list' do
+    game = build(:game)
+    game.initialize_tiles
+    tiles = game.tiles.split(';')
+    tile1 = tiles.first
+    tile1_id = tile1.split(':').first.to_i
+    tiles_by_id = Tile.all.map { |t| [t.id, t] }.to_h
+    tile1_obj = tiles_by_id[tile1_id]
+    tile2 = tiles.detect do |t|
+      t_id = t.split(':').first.to_i
+      t_obj = tiles_by_id[t_id]
+      t != tile1 && !tile1_obj.match?(t_obj)
+    end
+
+    refute game.match_tiles(tile1, tile2)
+    assert game.tiles.include?(tile1)
+    assert game.tiles.include?(tile2)
+  end
 end

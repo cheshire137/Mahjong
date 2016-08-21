@@ -108,6 +108,13 @@ class Game < ApplicationRecord
 
   def match_tiles(tile1, tile2)
     return false if tile1 == tile2 # can't match a tile with itself
+
+    # Ensure it's a valid match by tile type
+    tile1_id = tile1.split(':').first.to_i
+    tile2_id = tile2.split(':').first.to_i
+    tiles_to_match = Tile.where(id: [tile1_id, tile2_id])
+    return false unless tiles_to_match.first.match?(tiles_to_match.last)
+
     new_positions = tiles.split(';').
         reject { |position| position == tile1 || position == tile2 }
     self.tiles = new_positions.join(';')
