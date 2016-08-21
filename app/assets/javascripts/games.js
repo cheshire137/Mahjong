@@ -1,7 +1,7 @@
 let selectedTile = null
 let resizeTimeout = false
 
-const hookUpTileLinks = function() {
+function hookUpTileLinks() {
   const links = document.querySelectorAll('a.mahjong-tile.selectable')
   links.forEach(link => {
     link.addEventListener('click', selectTile)
@@ -81,7 +81,7 @@ function boundedTile(tiles) {
   return boundedTiles[0]
 }
 
-const adjustTileSizes = function() {
+function adjustTileSizes() {
   clearTimeout(resizeTimeout)
   const tiles = Array.from(document.querySelectorAll('.mahjong-tile.is-visible'))
   tiles.sort(sortByCoordinates)
@@ -119,7 +119,7 @@ const adjustTileSizes = function() {
   })
 }
 
-const tileProperties = function(tile) {
+function tileProperties(tile) {
   const coordinates = tile.getAttribute('data-coords')
   const category = tile.getAttribute('data-category')
   const set = tile.getAttribute('data-set')
@@ -129,7 +129,7 @@ const tileProperties = function(tile) {
   return { coordinates, category, set, suit, number, name }
 }
 
-const tileMatchProperties = function(tile) {
+function tileMatchProperties(tile) {
   const id = tile.getAttribute('data-tile-id')
   const coordinates = tile.getAttribute('data-coords')
   const matchUrl = tile.getAttribute('data-match-url')
@@ -137,7 +137,7 @@ const tileMatchProperties = function(tile) {
   return { id, coordinates, matchUrl, authToken }
 }
 
-const isMatch = function(tileA, tileB) {
+function isMatch(tileA, tileB) {
   const propsA = tileProperties(tileA)
   const propsB = tileProperties(tileB)
   if (propsA.coordinates === propsB.coordinates) {
@@ -165,7 +165,7 @@ const isMatch = function(tileA, tileB) {
   return true
 }
 
-const matchTiles = function(tile1, tile2) {
+function matchTiles(tile1, tile2) {
   const props1 = tileMatchProperties(tile1)
   const props2 = tileMatchProperties(tile2)
   const tiles = `${props1.id}:${props1.coordinates};${props2.id}:${props2.coordinates}`
@@ -182,7 +182,7 @@ const matchTiles = function(tile1, tile2) {
   })
 }
 
-const selectTile = function(event) {
+function selectTile(event) {
   event.preventDefault()
   const tile = event.currentTarget
   if (selectedTile !== null) {
