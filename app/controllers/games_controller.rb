@@ -1,6 +1,8 @@
 class GamesController < ApplicationController
   IMAGES = %w(wood stones grass).freeze
 
+  before_action :authenticate_user!, only: [:create, :shuffle, :show, :match]
+
   def index
     unless user_signed_in?
       redirect_to temporary_games_path
