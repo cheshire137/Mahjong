@@ -1,3 +1,15 @@
 <div id="game-board" class="game-board">
   <%= render partial: 'games/game_board', locals: {game: @game} %>
 </div>
+<div class="game-controls">
+  <p>
+    Signed in as <strong><%= current_user.email %></strong>
+  </p>
+  <p>
+    <%= link_to 'Sign out', destroy_user_session_path %>
+  </p>
+  <hr>
+  <button type="button" class="button">
+    Shuffle
+  </button>
+</div>

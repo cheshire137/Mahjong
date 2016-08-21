@@ -9,6 +9,14 @@ $background-transition: background 0.1s linear;
   overflow: hidden;
 }
 
+.game-controls {
+  position: absolute;
+  right: 2vw;
+  top: 6vh;
+  width: 21vw;
+  text-align: center;
+}
+
 .mahjong-tile {
   position: absolute;
   display: inline-block;
