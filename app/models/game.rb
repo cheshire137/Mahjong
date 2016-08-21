@@ -11,7 +11,7 @@ class Game < ApplicationRecord
   validate :tile_state
 
   scope :in_progress, ->{ where(state: STATES[:in_progress]) }
-  scope :won, ->{ where(state: STATES[:in_progress]) }
+  scope :won, ->{ where(state: STATES[:won]) }
   scope :lost, ->{ where(state: STATES[:lost]) }
   scope :complete, ->{ where.not(state: STATES[:in_progress]) }
   scope :for_user, ->(user) { where(user: user) }
