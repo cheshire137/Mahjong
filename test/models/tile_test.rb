@@ -171,5 +171,9 @@ class TileTest < ActiveSupport::TestCase
     h = Tile.new(category: 'honor', name: 'north', set: 'wind')
     i = Tile.new(category: 'honor', name: 'north', set: 'wind')
     assert h.match?(i)
+
+    j = Tile.new(category: 'bonus', name: 'orchid', set: 'flower')
+    k = Tile.new(category: 'bonus', name: 'plum', set: 'flower')
+    assert j.match?(k)
   end
 end
