@@ -7,8 +7,12 @@
   </head>
 
   <body>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
+    <% if (msg = notice).present? %>
+      <div class="notification is-success"><%= msg %></div>
+    <% end %>
+    <% if (msg = alert).present? %>
+      <div class="notification is-danger"><%= msg %></div>
+    </body>
     <%= yield %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </body>
