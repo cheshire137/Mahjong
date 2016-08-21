@@ -12,5 +12,5 @@
   <div id="game-state">
     <%= render partial: 'games/state', locals: {game: @game} %>
   </div>
-  <%= render partial: 'games/controls', locals: {image: @image} %>
+  <%= render partial: 'games/controls', locals: {game: @game, image: @image} %>
 </div>
