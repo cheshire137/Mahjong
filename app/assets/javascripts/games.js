@@ -8,12 +8,6 @@ const hookUpTileLinks = function() {
   })
 }
 
-const viewportSize = function() {
-  const w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0)
-  const h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0)
-  return { w, h }
-}
-
 function tileCoordinates(tile) {
   const coordinates = tile.getAttribute('data-coords')
   let [x, y, z] = coordinates.split(',')
