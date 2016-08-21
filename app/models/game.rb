@@ -72,6 +72,16 @@ class Game < ApplicationRecord
     @max_z
   end
 
+  def min_x
+    find_min_coordinates unless defined? @min_x
+    @min_x
+  end
+
+  def min_y
+    find_min_coordinates unless defined? @min_y
+    @min_y
+  end
+
   def won?
     state == :won
   end
@@ -169,6 +179,15 @@ class Game < ApplicationRecord
       @max_x = placed_tile.x if placed_tile.x > @max_x
       @max_y = placed_tile.y if placed_tile.y > @max_y
       @max_z = placed_tile.z if placed_tile.z > @max_z
+    end
+  end
+
+  def find_min_coordinates
+    @min_x = 500
+    @min_y = 500
+    each_tile do |placed_tile|
+      @min_x = placed_tile.x if placed_tile.x < @min_x
+      @min_y = placed_tile.y if placed_tile.y < @min_y
     end
   end
 
