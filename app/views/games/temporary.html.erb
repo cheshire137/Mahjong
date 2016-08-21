@@ -7,6 +7,9 @@
     <%= link_to "Sign up", new_user_registration_path %>
   </p>
   <hr>
+  <div id="game-state">
+    <%= render partial: 'games/state', locals: {game: @game} %>
+  </div>
   <button type="button" class="button" id="shuffle-tiles-button">
     Shuffle
   </button>

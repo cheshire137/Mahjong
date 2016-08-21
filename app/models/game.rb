@@ -72,6 +72,18 @@ class Game < ApplicationRecord
     @max_z
   end
 
+  def won?
+    state == :won
+  end
+
+  def lost?
+    state == :lost
+  end
+
+  def in_progress?
+    state == :in_progress
+  end
+
   def row_count
     (max_y / 2.0) + 1
   end

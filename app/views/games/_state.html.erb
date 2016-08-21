@@ -1,0 +1,9 @@
+<% if game.won? %>
+  <div class="notification is-success">
+    Congratulations! You won the game.
+  </div>
+<% elsif game.lost? %>
+  <div class="notification is-warning">
+    Aww, better luck next time.
+  </div>
+<% end %>
