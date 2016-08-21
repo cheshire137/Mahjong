@@ -138,4 +138,26 @@ class GameTest < ActiveSupport::TestCase
     assert_equal 14, game.max_y
     assert_equal 4, game.max_z
   end
+
+  test 'match_tiles will not match a tile with itself' do
+    game = build(:game)
+    game.initialize_tiles
+    tile = game.tiles.split(';').first
+
+    refute game.match_tiles(tile, tile)
+    assert game.tiles.include?(tile)
+  end
+
+  test 'match_tiles removes a valid match from tiles list' do
+    game = build(:game)
+    game.initialize_tiles
+    tiles = game.tiles.split(';')
+    tile1 = tiles.first
+    tile1_id = tile1.split(':').first
+    tile2 = tiles.detect { |t| t != tile1 && t.split(':').first == tile1_id }
+
+    assert game.match_tiles(tile1, tile2)
+    refute game.tiles.include?(tile1)
+    refute game.tiles.include?(tile2)
+  end
 end
