@@ -18,6 +18,13 @@ $background-transition: background 0.1s linear;
     cursor: pointer;
   }
 
+  &.set-season {
+    .tile-image {
+      border: 1px solid #000;
+      border-radius: 1vw;
+    }
+  }
+
   &.no-image,
   &.has-image .tile-image {
     background-color: #fff;
