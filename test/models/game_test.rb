@@ -118,4 +118,12 @@ class GameTest < ActiveSupport::TestCase
     assert game.save
     assert_equal before_value, game.reload.tiles
   end
+
+  test 'max coordinates from all tiles' do
+    game = create(:game)
+
+    assert_equal 28, game.max_x
+    assert_equal 14, game.max_y
+    assert_equal 4, game.max_z
+  end
 end

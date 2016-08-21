@@ -58,21 +58,18 @@ class Game < ApplicationRecord
   end
 
   def max_x
-    return @max_x if defined? @max_x
-    max = -1
-    each_tile do |placed_tile|
-      max = placed_tile.x if placed_tile.x > max
-    end
-    @max_x = max
+    find_max_coordinates unless defined? @max_x
+    @max_x
   end
 
   def max_y
-    return @max_y if defined? @max_y
-    max = -1
-    each_tile do |placed_tile|
-      max = placed_tile.y if placed_tile.y > max
-    end
-    @max_y = max
+    find_max_coordinates unless defined? @max_y
+    @max_y
+  end
+
+  def max_z
+    find_max_coordinates unless defined? @max_z
+    @max_z
   end
 
   def row_count
@@ -116,6 +113,17 @@ class Game < ApplicationRecord
   end
 
   private
+
+  def find_max_coordinates
+    @max_x = -1
+    @max_y = -1
+    @max_z = -1
+    each_tile do |placed_tile|
+      @max_x = placed_tile.x if placed_tile.x > @max_x
+      @max_y = placed_tile.y if placed_tile.y > @max_y
+      @max_z = placed_tile.z if placed_tile.z > @max_z
+    end
+  end
 
   def tile_state
     return unless tiles.present?
