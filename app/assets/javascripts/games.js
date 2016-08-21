@@ -1,9 +1,126 @@
 let selectedTile = null
+let resizeTimeout = false
 
 const hookUpTileLinks = function() {
   const links = document.querySelectorAll('a.mahjong-tile.selectable')
   links.forEach(link => {
     link.addEventListener('click', selectTile)
+  })
+}
+
+const viewportSize = function() {
+  const w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0)
+  const h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0)
+  return { w, h }
+}
+
+function tileCoordinates(tile) {
+  const coordinates = tile.getAttribute('data-coords')
+  let [x, y, z] = coordinates.split(',')
+  x = parseInt(x, 10)
+  y = parseInt(y, 10)
+  z = parseInt(z, 10)
+  return { x, y, z }
+}
+
+function sortByCoordinates(a, b) {
+  const aCoords = tileCoordinates(a)
+  const bCoords = tileCoordinates(b)
+  if (aCoords.x > bCoords.x) {
+    return 1
+  }
+  if (aCoords.x < bCoords.x) {
+    return -1
+  }
+  if (aCoords.y > bCoords.y) {
+    return 1
+  }
+  if (aCoords.y < bCoords.y) {
+    return -1
+  }
+  return aCoords.z > bCoords.z ? 1 : -1
+}
+
+function tileToRight(tile, tiles) {
+  const coordinates = tileCoordinates(tile)
+  const toTheRight = tiles.filter(otherTile => {
+    const otherCoordinates = tileCoordinates(otherTile)
+    return otherCoordinates.x > coordinates.x &&
+        otherCoordinates.y === coordinates.y &&
+        otherCoordinates.z === coordinates.z
+  })[0]
+  return toTheRight
+}
+
+function tileBelow(tile, tiles) {
+  const coordinates = tileCoordinates(tile)
+  const below = tiles.filter(otherTile => {
+    const otherCoordinates = tileCoordinates(otherTile)
+    return otherCoordinates.x === coordinates.x &&
+        otherCoordinates.y > coordinates.y &&
+        otherCoordinates.z === coordinates.z
+  })[0]
+  return below
+}
+
+function boundedTile(tiles) {
+  const boundedTiles = tiles.filter(tile => {
+    const tileOnRight = tileToRight(tile, tiles)
+    const below = tileBelow(tile, tiles)
+    if (typeof tileOnRight === 'undefined') {
+      return false
+    }
+    if (typeof below === 'undefined') {
+      return false
+    }
+    const coordinates = tileCoordinates(tile)
+    const rightCoords = tileCoordinates(tileOnRight)
+    if ((rightCoords.x - coordinates.x) > 2) {
+      return false
+    }
+    const belowCoords = tileCoordinates(below)
+    if ((belowCoords.y - coordinates.y) > 2) {
+      return false
+    }
+    return true
+  })
+  return boundedTiles[0]
+}
+
+const adjustTileSizes = function() {
+  clearTimeout(resizeTimeout)
+  const tiles = Array.from(document.querySelectorAll('.mahjong-tile.is-visible'))
+  tiles.sort(sortByCoordinates)
+
+  // Ideal ratio:
+  const imageW = 37
+  const imageH = 46
+  const imageR = imageW / imageH
+
+  const constrainedTile = boundedTile(tiles)
+  const rightSibling = tileToRight(constrainedTile, tiles)
+  const belowSibling = tileBelow(constrainedTile, tiles)
+
+  const tileRect = constrainedTile.getBoundingClientRect()
+  const rightRect = rightSibling.getBoundingClientRect()
+  const belowRect = belowSibling.getBoundingClientRect()
+
+  const availableW = rightRect.left - tileRect.left
+  const availableH = belowRect.top - tileRect.top
+  const availableR = availableW / availableH
+  let scaledW = 0
+  let scaledH = 0
+  if (availableR > imageR) {
+    scaledW = (imageW * availableH) / imageH
+    scaledH = availableH
+  } else {
+    scaledW = availableW
+    scaledH = (imageH * availableW) / imageW
+  }
+
+  tiles.forEach(tile => {
+    tile.style.width = `${scaledW}px`
+    tile.style.height = `${scaledH}px`
   })
 }
 
@@ -92,4 +209,12 @@ $(function() {
       getAttribute('content')
   $.ajaxSetup({ headers: { 'X-CSRF-Token': csrfToken } })
   hookUpTileLinks()
+  adjustTileSizes()
+})
+
+$(window).resize(function() {
+  if (resizeTimeout) {
+    clearTimeout(resizeTimeout)
+  }
+  resizeTimeout = setTimeout(adjustTileSizes, 200)
 })
