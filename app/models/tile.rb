@@ -95,6 +95,20 @@ class Tile < ApplicationRecord
     str
   end
 
+  # Keep in sync with games.js isMatch
+  def match?(other_tile)
+    return false unless category == other_tile.category
+    if suit_category?
+      return false unless suit == other_tile.suit
+      return false unless number == other_tile.number
+    end
+    return false unless set == other_tile.set
+    if %w(wind dragon).include? set
+      return false unless name == other_tile.name
+    end
+    true
+  end
+
   def self.create_all_tiles
     SUITS.each do |suit|
       (1..9).each do |number|

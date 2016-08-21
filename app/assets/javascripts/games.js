@@ -172,6 +172,7 @@
     }
   }
 
+  // Keep in sync with Tile#match?
   function isMatch(tileA, tileB) {
     const propsA = tileProperties(tileA)
     const propsB = tileProperties(tileB)

@@ -150,4 +150,26 @@ class TileTest < ActiveSupport::TestCase
     refute tile.valid?
     assert_includes tile.errors.keys, :name
   end
+
+  test 'match? returns true when two tiles are a match' do
+    a = Tile.new(category: 'bonus', name: 'autumn', set: 'season')
+    b = Tile.new(category: 'bonus', name: 'spring', set: 'season')
+    assert a.match?(b)
+
+    c = Tile.new(category: 'suit', suit: 'character', number: 3)
+    d = Tile.new(category: 'suit', suit: 'character', number: 4)
+    refute c.match?(d)
+
+    d = Tile.new(category: 'suit', suit: 'circle', number: 1)
+    e = Tile.new(category: 'suit', suit: 'bamboo', number: 1)
+    refute d.match?(e)
+
+    f = Tile.new(category: 'honor', name: 'red', set: 'dragon')
+    g = Tile.new(category: 'honor', name: 'green', set: 'dragon')
+    refute f.match?(g)
+
+    h = Tile.new(category: 'honor', name: 'north', set: 'wind')
+    i = Tile.new(category: 'honor', name: 'north', set: 'wind')
+    assert h.match?(i)
+  end
 end
