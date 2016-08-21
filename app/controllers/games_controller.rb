@@ -1,4 +1,6 @@
 class GamesController < ApplicationController
+  IMAGES = %w(wood stones grass).freeze
+
   def index
     unless user_signed_in?
       redirect_to temporary_games_path
@@ -39,7 +41,7 @@ class GamesController < ApplicationController
 
   def image
     image = params[:image]
-    session[:image] = image if %w(wood stones).include?(image)
+    session[:image] = image if IMAGES.include?(image)
     redirect_to params[:return_to]
   end
 

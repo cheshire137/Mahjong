@@ -12,6 +12,10 @@ $background-transition: background 0.1s linear;
   &.stones {
     background-image: image-url('stones-1.jpeg');
   }
+
+  &.grass {
+    background-image: image-url('grass-1.jpg');
+  }
 }
 
 .game-board {
@@ -102,5 +106,13 @@ $background-transition: background 0.1s linear;
     .tile-image {
       background-color: #f9f9f9;
     }
+  }
+}
+
+.game-state {
+  margin-bottom: 20px;
+
+  .notification {
+    padding: 8px 10px;
   }
 }
