@@ -14,7 +14,8 @@ class GamesController < ApplicationController
       redirect_to active_game
       return
     end
-    @completed_count = Game.for_user(current_user).complete.count
+    @completed_games = Game.for_user(current_user).complete
+    @completed_count = @completed_games.count
     @win_count = Game.for_user(current_user).won.count
     @lose_count = Game.for_user(current_user).lost.count
   end

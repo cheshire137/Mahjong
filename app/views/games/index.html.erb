@@ -11,6 +11,17 @@
             </li>
           <% end %>
         </ul>
+        <% if @completed_count > 0 %>
+          <hr>
+          <h2 class="subtitle">Past Games</h2>
+          <ul>
+            <% @completed_games.each do |game| %>
+              <li>
+                <%= game %>
+              </li>
+            <% end %>
+          </ul>
+        <% end %>
       </div>
       <% if @completed_count > 0 %>
         <div class="column">
