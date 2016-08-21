@@ -173,7 +173,9 @@ class Game < ApplicationRecord
     return "Temporary game" if new_record?
     date_format = "%b %d, %Y"
     prefix = if in_progress?
-      "Started #{created_at.strftime(date_format)}"
+      num = tile_count
+      "Started #{created_at.strftime(date_format)} - #{num} " +
+          "#{'tile'.pluralize(num)} remaining"
     else
       "#{state.to_s.capitalize} #{updated_at.strftime(date_format)}"
     end
