@@ -4,9 +4,8 @@ class GamesController < ApplicationController
   def index
     active_game = Game.for_user(current_user).in_progress.most_recent.first
     unless active_game
-      active_game = Game.new
-      active_game.layout = Layout.first
-      active_game.user = current_user
+      active_game = Game.new(layout: Layout.first, user: current_user)
+      active_game.initialize_tiles
       active_game.save!
     end
     redirect_to active_game

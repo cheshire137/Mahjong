@@ -86,7 +86,10 @@ class GameTest < ActiveSupport::TestCase
   end
 
   test 'each_tile loops over each tile in tiles' do
-    game = create(:game)
+    game = build(:game)
+    game.initialize_tiles
+    game.save!
+
     count = 0
     game.each_tile do |placed_tile|
       count += 1
@@ -95,7 +98,10 @@ class GameTest < ActiveSupport::TestCase
   end
 
   test "tile? returns true when given coordinates are occupied" do
-    game = create(:game)
+    game = build(:game)
+    game.initialize_tiles
+    game.save!
+
     assert game.tile?(2, 14, 0)
     assert game.tile?(12, 4, 2)
     assert game.tile?(18, 6, 1)
@@ -104,15 +110,19 @@ class GameTest < ActiveSupport::TestCase
     refute game.tile?(0, 7, 1)
   end
 
-  test 'populates tiles on create' do
+  test 'initialize_tiles populates tiles' do
     game = build(:game)
     assert game.tiles.blank?
-    assert game.save
+
+    game.initialize_tiles
     refute game.tiles.blank?
   end
 
   test 'does not change tiles on update' do
-    game = create(:game)
+    game = build(:game)
+    game.initialize_tiles
+    game.save!
+
     before_value = game.reload.tiles
     game.updated_at = 1.day.ago
     assert game.save
@@ -120,7 +130,9 @@ class GameTest < ActiveSupport::TestCase
   end
 
   test 'max coordinates from all tiles' do
-    game = create(:game)
+    game = build(:game)
+    game.initialize_tiles
+    game.save!
 
     assert_equal 28, game.max_x
     assert_equal 14, game.max_y
