@@ -118,6 +118,9 @@ class Game < ApplicationRecord
     new_positions = tiles.split(';').
         reject { |position| position == tile1 || position == tile2 }
     self.tiles = new_positions.join(';')
+
+    self.state = :won if new_positions.empty?
+
     true
   end
 

@@ -148,6 +148,18 @@ class GameTest < ActiveSupport::TestCase
     assert game.tiles.include?(tile)
   end
 
+  test 'match_tiles marks game as won when last pair is removed' do
+    game = build(:game)
+    tile_id = Tile.first.id
+    game.tiles = "#{tile_id}:0,2,0;#{tile_id}:0,4,0"
+
+    assert_equal :in_progress, game.state
+    game.match_tiles("#{tile_id}:0,2,0", "#{tile_id}:0,4,0")
+
+    assert_equal :won, game.state
+    assert game.tiles.blank?
+  end
+
   test 'match_tiles removes a valid match from tiles list' do
     game = build(:game)
     game.initialize_tiles
@@ -159,6 +171,7 @@ class GameTest < ActiveSupport::TestCase
     assert game.match_tiles(tile1, tile2)
     refute game.tiles.include?(tile1)
     refute game.tiles.include?(tile2)
+    assert_equal :in_progress, game.state
   end
 
   test 'match_tiles will not remove an invalid match from tiles list' do
@@ -178,6 +191,7 @@ class GameTest < ActiveSupport::TestCase
     refute game.match_tiles(tile1, tile2)
     assert game.tiles.include?(tile1)
     assert game.tiles.include?(tile2)
+    assert_equal :in_progress, game.state
   end
 
   test 'shuffle_tiles reorders tiles' do
