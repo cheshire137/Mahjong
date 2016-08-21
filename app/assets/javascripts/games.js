@@ -129,6 +129,16 @@ function adjustTileSizes() {
   tiles.forEach(tile => {
     tile.style.width = `${scaledW}px`
     tile.style.height = `${scaledH}px`
+
+    const coordinates = tileCoordinates(tile)
+    if (coordinates.z > 0) {
+      const image = tile.querySelector('.tile-image')
+      const factor = coordinates.z * 2
+      image.style.marginLeft = `-${factor}px`
+      image.style.marginTop = `-${factor}px`
+      image.style.boxShadow = `${factor}px ${factor}px ${factor}px #494949`
+    }
+
     tile.classList.add('is-sized')
   })
 }
