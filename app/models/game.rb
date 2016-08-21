@@ -169,6 +169,17 @@ class Game < ApplicationRecord
     end
   end
 
+  def to_s
+    return "Temporary game" if new_record?
+    date_format = "%b %d, %Y"
+    prefix = if in_progress?
+      "Started #{created_at.strftime(date_format)}"
+    else
+      "#{state.to_s.capitalize} #{updated_at.strftime(date_format)}"
+    end
+    "#{prefix} - #{layout.name} layout"
+  end
+
   private
 
   def find_max_coordinates

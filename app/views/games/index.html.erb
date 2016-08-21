@@ -1,16 +1,32 @@
-<% if @completed_count > 0 %>
-  <section class="section">
-    <div class="container">
-      <p>
-        You have finished <strong><%= @completed_count %></strong>
-        <%= 'game'.pluralize(@completed_count) %>.
-      </p>
-      <p>
-        Won: <%= @win_count %> &mdash; <%= percentage @win_count, @completed_count %>
-      </p>
-      <p>
-        Lost: <%= @lose_count %> &mdash; <%= percentage @lose_count, @completed_count %>
-      </p>
+<section class="section">
+  <div class="container">
+    <h1 class="title">Mahjong</h1>
+    <div class="columns">
+      <div class="column">
+        <h2 class="subtitle">Continue Playing</h2>
+        <ul>
+          <% @active_games.each do |game| %>
+            <li>
+              <%= link_to game, game %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+      <% if @completed_count > 0 %>
+        <div class="column">
+          <h2 class="subtitle">Statistics</h2>
+          <p>
+            You have finished <strong><%= @completed_count %></strong>
+            <%= 'game'.pluralize(@completed_count) %>.
+          </p>
+          <p>
+            Won: <%= @win_count %> &mdash; <%= percentage @win_count, @completed_count %>
+          </p>
+          <p>
+            Lost: <%= @lose_count %> &mdash; <%= percentage @lose_count, @completed_count %>
+          </p>
+        </div>
+      <% end %>
     </div>
-  </section>
-<% end %>
+  </div>
+</section>
