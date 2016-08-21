@@ -4,13 +4,6 @@
   </div>
 </div>
 <div class="game-controls">
-  <p>
-    Signed in as <strong><%= current_user.email %></strong>
-  </p>
-  <p>
-    <%= link_to 'Sign out', destroy_user_session_path %>
-  </p>
-  <hr>
   <div id="game-state" class="game-state">
     <%= render partial: 'games/state', locals: {game: @game} %>
   </div>

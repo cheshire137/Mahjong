@@ -47,5 +47,11 @@
         </div>
       <% end %>
     </div>
+    <hr>
+    <p>
+      Signed in as <strong><%= current_user.email %></strong>
+      &middot;
+      <%= link_to 'Sign out', destroy_user_session_path %>
+    </p>
   </div>
 </section>
