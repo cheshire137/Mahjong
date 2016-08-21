@@ -9,5 +9,8 @@ script:
   - RAILS_ENV=test bundle exec rake db:migrate --trace
   - RAILS_ENV=test bundle exec rake test
 before_script:
-  - psql -c 'CREATE DATABASE Mahjong_test'
+  - cp config/database.yml.travis config/database.yml
+  - psql -c 'CREATE DATABASE travis_ci_test' -U postgres
 bundler_args: --binstubs=./bundler_stubs
+services:
+  - postgresql
