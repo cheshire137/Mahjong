@@ -179,4 +179,34 @@ class GameTest < ActiveSupport::TestCase
     assert game.tiles.include?(tile1)
     assert game.tiles.include?(tile2)
   end
+
+  test 'shuffle_tiles reorders tiles' do
+    game = build(:game)
+    game.initialize_tiles
+    before_tiles = game.tiles
+
+    tiles_before = {}
+    game.each_tile do |placed_tile|
+      tiles_before[placed_tile.tile.id] ||= []
+      tiles_before[placed_tile.tile.id] << placed_tile.coordinates
+    end
+    tiles_before.each do |id, coords_list|
+      tiles_before[id] = coords_list.sort
+    end
+
+    game.shuffle_tiles
+    refute game.tiles.blank?
+    assert game.valid?
+    refute_equal before_tiles, game.tiles
+
+    tiles_after = {}
+    game.each_tile do |placed_tile|
+      tiles_after[placed_tile.tile.id] ||= []
+      tiles_after[placed_tile.tile.id] << placed_tile.coordinates
+    end
+    tiles_after.each do |id, coords_list|
+      tiles_after[id] = coords_list.sort
+      refute_equal tiles_before[id], tiles_after[id]
+    end
+  end
 end

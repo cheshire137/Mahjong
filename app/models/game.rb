@@ -121,6 +121,29 @@ class Game < ApplicationRecord
     true
   end
 
+  def shuffle_tiles
+    positions = tiles.split(';')
+    coordinates_and_tiles = {}
+    tile_ids = []
+    positions.each do |tile_and_coordinates|
+      tile_id, _ = tile_and_coordinates.split(':')
+      tile_ids << tile_id.to_i
+    end
+    positions.each do |tile_and_coordinates|
+      _, coordinates = tile_and_coordinates.split(':')
+      coordinates_and_tiles[coordinates] = tile_ids.sample
+    end
+    tile_positions = coordinates_and_tiles.map do |coordinates, tile_id|
+      "#{tile_id}:#{coordinates}"
+    end
+    self.tiles = tile_positions.join(';')
+    tiles_by_id = Tile.where(id: tile_ids.uniq).map { |t| [t.id, t] }.to_h
+    @placed_tiles = coordinates_and_tiles.map do |coordinates, tile_id|
+      PlacedTile.new(tiles_by_id[tile_id], coordinates: coordinates,
+                     game: self)
+    end
+  end
+
   private
 
   def find_max_coordinates
