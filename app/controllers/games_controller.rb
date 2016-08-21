@@ -11,6 +11,9 @@ class GamesController < ApplicationController
       active_game.save!
       redirect_to active_game
       return
+    elsif @active_games.size == 1
+      redirect_to @active_games.first
+      return
     end
     @completed_count = Game.for_user(current_user).complete.count
     @win_count = Game.for_user(current_user).won.count
