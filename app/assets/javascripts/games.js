@@ -136,7 +136,7 @@ function adjustTileSizes() {
       const factor = coordinates.z * 2
       image.style.marginLeft = `-${factor}px`
       image.style.marginTop = `-${factor}px`
-      image.style.boxShadow = `${factor}px ${factor}px ${factor}px #494949`
+      image.style.boxShadow = `3px 3px 3px rgba(0, 0, 0, ${0.3 * coordinates.z})`
     }
 
     tile.classList.add('is-sized')
