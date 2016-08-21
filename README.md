@@ -27,3 +27,4 @@ X coordinates are in black horizontally across the top, y coordinates are in pal
 - [taksuyu/tile-art](https://github.com/taksuyu/tile-art) for the tile images.
 - [Bulma.io](http://bulma.io/) for the CSS framework.
 - [Unsplash](https://unsplash.com/) for the nice backgrounds.
+- [Font Awesome](http://fontawesome.io/) for the icons and [font-awesome-rails](https://github.com/bokmann/font-awesome-rails) for ease of use.
