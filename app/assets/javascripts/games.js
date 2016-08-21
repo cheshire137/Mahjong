@@ -4,7 +4,7 @@
 
   function hookUpTileLinks() {
     const links = document.querySelectorAll('a.mahjong-tile.selectable')
-    links.forEach(link => {
+    links.forEach(function(link) {
       link.addEventListener('click', selectTile)
     })
   }
@@ -38,7 +38,7 @@
 
   function tileToRight(tile, tiles) {
     const coordinates = tileCoordinates(tile)
-    const toTheRight = tiles.filter(otherTile => {
+    const toTheRight = tiles.filter(function(otherTile) {
       const otherCoordinates = tileCoordinates(otherTile)
       return otherCoordinates.x > coordinates.x &&
           otherCoordinates.y === coordinates.y &&
@@ -49,7 +49,7 @@
 
   function tileBelow(tile, tiles) {
     const coordinates = tileCoordinates(tile)
-    const below = tiles.filter(otherTile => {
+    const below = tiles.filter(function(otherTile) {
       const otherCoordinates = tileCoordinates(otherTile)
       return otherCoordinates.x === coordinates.x &&
           otherCoordinates.y > coordinates.y &&
@@ -59,7 +59,7 @@
   }
 
   function boundedTile(tiles) {
-    const boundedTiles = tiles.filter(tile => {
+    const boundedTiles = tiles.filter(function(tile) {
       const tileOnRight = tileToRight(tile, tiles)
       const below = tileBelow(tile, tiles)
       if (typeof tileOnRight === 'undefined') {
@@ -127,7 +127,7 @@
       gameBoard.setAttribute('data-tile-height', scaledH)
     }
 
-    tiles.forEach(tile => {
+    tiles.forEach(function(tile) {
       tile.style.width = `${scaledW}px`
       tile.style.height = `${scaledH}px`
 
@@ -205,11 +205,11 @@
       type: 'POST',
       dataType: 'html',
       data: data
-    }).done(response => {
+    }).done(function(response) {
       gameBoard.innerHTML = response
       hookUpTileLinks()
       adjustTileSizes()
-    }).fail((jqXHR, status, error) => {
+    }).fail(function(jqXHR, status, error) {
       console.error('failed to match tiles', tiles, jqXHR, status, error)
     })
   }
