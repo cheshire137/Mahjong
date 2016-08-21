@@ -145,6 +145,7 @@
   }
 
   function updateGameBoard(html) {
+    selectedTile = null
     document.getElementById('game-board').innerHTML = html
     hookUpTileLinks()
     adjustTileSizes()
@@ -226,6 +227,7 @@
     }).done(function(response) {
       updateGameBoard(response)
     }).fail(function(jqXHR, status, error) {
+      selectedTile = null
       console.error('failed to match tiles', tiles, jqXHR, status, error)
     })
   }
@@ -262,7 +264,7 @@
     }).done(function(response) {
       updateGameBoard(response)
     }).fail(function(jqXHR, status, error) {
-      console.error('failed to match tiles', tiles, jqXHR, status, error)
+      console.error('failed to shuffle tiles', tiles, jqXHR, status, error)
     })
   }
 
