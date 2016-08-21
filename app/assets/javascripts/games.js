@@ -1,5 +1,12 @@
 let selectedTile = null
 
+const hookUpTileLinks = function() {
+  const links = document.querySelectorAll('a.mahjong-tile.selectable')
+  links.forEach(link => {
+    link.addEventListener('click', selectTile)
+  })
+}
+
 const tileProperties = function(tile) {
   const coordinates = tile.getAttribute('data-coords')
   const category = tile.getAttribute('data-category')
@@ -57,6 +64,7 @@ const matchTiles = function(tile1, tile2) {
     dataType: 'html'
   }).done(response => {
     document.getElementById('game-board').innerHTML = response
+    hookUpTileLinks()
   }).fail((jqXHR, status, error) => {
     console.error('failed to match tiles', tiles, jqXHR, status, error)
   })
@@ -83,8 +91,5 @@ $(function() {
   const csrfToken = document.querySelector('meta[name=csrf-token]').
       getAttribute('content')
   $.ajaxSetup({ headers: { 'X-CSRF-Token': csrfToken } })
-  const links = document.querySelectorAll('a.mahjong-tile.selectable')
-  links.forEach(link => {
-    link.addEventListener('click', selectTile)
-  })
+  hookUpTileLinks()
 })
