@@ -115,6 +115,7 @@ const adjustTileSizes = function() {
   tiles.forEach(tile => {
     tile.style.width = `${scaledW}px`
     tile.style.height = `${scaledH}px`
+    tile.classList.add('is-sized')
   })
 }
 

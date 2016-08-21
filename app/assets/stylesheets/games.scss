@@ -14,6 +14,11 @@ $background-transition: background 0.1s linear;
   display: inline-block;
   overflow: hidden;
   text-align: center;
+  visibility: hidden;
+
+  &.is-sized {
+    visibility: visible;
+  }
 
   &.selectable {
     cursor: pointer;
