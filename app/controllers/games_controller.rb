@@ -26,6 +26,7 @@ class GamesController < ApplicationController
     else
       Layout.first
     end
+    @image = current_image
     @game = Game.new(layout: layout)
     session[:layout_id] = @game.layout_id
     if (tiles = session[:tiles]).present?
@@ -36,8 +37,15 @@ class GamesController < ApplicationController
     end
   end
 
+  def image
+    image = params[:image]
+    session[:image] = image if %w(wood stones).include?(image)
+    redirect_to params[:return_to]
+  end
+
   def show
     @game = current_game
+    @image = current_image
   end
 
   def match
@@ -71,6 +79,10 @@ class GamesController < ApplicationController
   end
 
   private
+
+  def current_image
+    session[:image].presence || 'wood'
+  end
 
   def current_game
     return @current_game if defined? @current_game

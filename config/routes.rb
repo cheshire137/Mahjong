@@ -6,6 +6,7 @@ Rails.application.routes.draw do
       get :temporary
       post :temporary_match
       post :temporary_shuffle
+      get :image
     end
     member do
       post :match

@@ -276,6 +276,22 @@
     })
   }
 
+  function changeImage(event) {
+    const radio = event.currentTarget
+    const returnTo = window.location.pathname
+    const imageUrl = radio.getAttribute('data-url')
+    const joiner = imageUrl.indexOf('?') > -1 ? '&' : '?'
+    const url = imageUrl + joiner + 'return_to=' + encodeURIComponent(returnTo)
+    window.location.href = url
+  }
+
+  function hookUpImageChangeRadios() {
+    const radios = document.querySelectorAll('.image-change-radio')
+    radios.forEach(function(radio) {
+      radio.addEventListener('click', changeImage)
+    })
+  }
+
   if (document.getElementById('game-board')) {
     $(function() {
       const csrfToken = document.querySelector('meta[name=csrf-token]').
@@ -284,6 +300,7 @@
       hookUpTileLinks()
       adjustTileSizes()
       hookUpShuffleButton()
+      hookUpImageChangeRadios()
     })
 
     $(window).resize(function() {

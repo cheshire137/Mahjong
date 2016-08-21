@@ -1,0 +1,14 @@
+<button type="button" class="button is-dark" id="shuffle-tiles-button">
+  Shuffle
+</button>
+<hr>
+<p class="control">
+  <label class="radio">
+    <%= radio_button_tag 'image', 'wood', image == 'wood', class: 'image-change-radio', 'data-url' => image_games_path(image: 'wood') %>
+    Wood
+  </label>
+  <label class="radio">
+    <%= radio_button_tag 'image', 'stones', image == 'stones', class: 'image-change-radio', 'data-url' => image_games_path(image: 'stones') %>
+    Stones
+  </label>
+</p>

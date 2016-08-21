@@ -3,10 +3,14 @@ $background-transition: background 0.1s linear;
 .game-board-container {
   width: 73vw;
   height: 100vh;
+  background-size: cover;
 
   &, &.wood {
     background-image: image-url('wood-grain-1.jpg');
-    background-size: cover;
+  }
+
+  &.stones {
+    background-image: image-url('stones-1.jpeg');
   }
 }
 
@@ -26,14 +30,17 @@ $background-transition: background 0.1s linear;
   padding: 6vh 2vw;
   width: 26vw;
   min-height: 100vh;
-  text-align: center;
   background-color: #333;
+
+  hr {
+    border-top-color: #444;
+  }
 
   strong, & {
     color: #ccc;
   }
 
-  a:hover, a:focus {
+  a:hover, a:focus, .radio:hover {
     color: #fff;
   }
 }
