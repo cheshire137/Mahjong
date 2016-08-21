@@ -1,7 +1,9 @@
 class GamesController < ApplicationController
-  before_action :authenticate_user!
-
   def index
+    unless user_signed_in?
+      redirect_to temporary_games_path
+      return
+    end
     active_game = Game.for_user(current_user).in_progress.most_recent.first
     unless active_game
       active_game = Game.new(layout: Layout.first, user: current_user)
@@ -11,15 +13,39 @@ class GamesController < ApplicationController
     redirect_to active_game
   end
 
+  def temporary
+    layout = if session[:layout_id]
+      Layout.find(session[:layout_id])
+    else
+      Layout.first
+    end
+    @game = Game.new(layout: layout)
+    session[:layout_id] = @game.layout_id
+    if (tiles = session[:tiles]).present?
+      @game.tiles = tiles
+    else
+      @game.initialize_tiles
+      session[:tiles] = @game.tiles
+    end
+  end
+
   def show
     @game = current_game
   end
 
   def match
-    @game = current_game
-    @game.match_tiles(*params[:tiles].split(';'))
-    @game.save
-    render partial: 'games/game_board', locals: {game: @game}
+    game = current_game
+    game.match_tiles(*params[:tiles].split(';'))
+    game.save
+    render partial: 'games/game_board', locals: {game: game}
+  end
+
+  def temporary_match
+    game = Game.new(layout: Layout.find(params[:layout_id]),
+                    tiles: params[:previous_tiles])
+    game.match_tiles(*params[:tiles].split(';'))
+    session[:tiles] = game.tiles
+    render partial: 'games/game_board', locals: {game: game}
   end
 
   private

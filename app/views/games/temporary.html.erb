@@ -1,0 +1,12 @@
+<div id="game-board" class="game-board" data-tiles="<%= @game.tiles %>">
+  <%= render partial: 'games/game_board', locals: {game: @game} %>
+</div>
+<div class="game-controls">
+  <p>
+    Not signed in
+  </p>
+  <hr>
+  <button type="button" class="button">
+    Shuffle
+  </button>
+</div>

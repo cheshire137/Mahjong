@@ -157,8 +157,7 @@ function tileMatchProperties(tile) {
   const id = tile.getAttribute('data-tile-id')
   const coordinates = tile.getAttribute('data-coords')
   const matchUrl = tile.getAttribute('data-match-url')
-  const authToken = tile.getAttribute('data-auth-token')
-  return { id, coordinates, matchUrl, authToken }
+  return { id, coordinates, matchUrl }
 }
 
 function isMatch(tileA, tileB) {
@@ -192,14 +191,21 @@ function isMatch(tileA, tileB) {
 function matchTiles(tile1, tile2) {
   const props1 = tileMatchProperties(tile1)
   const props2 = tileMatchProperties(tile2)
+  const gameBoard = document.getElementById('game-board')
   const tiles = `${props1.id}:${props1.coordinates};${props2.id}:${props2.coordinates}`
-  const url = `${props1.matchUrl}?tiles=${encodeURIComponent(tiles)}`
+  const joiner = props1.matchUrl.indexOf('?') > -1 ? '&' : '?'
+  const url = `${props1.matchUrl}${joiner}tiles=${encodeURIComponent(tiles)}`
+  const data = {}
+  if (gameBoard.hasAttribute('data-tiles')) {
+    data.previous_tiles = gameBoard.getAttribute('data-tiles')
+  }
   $.ajax({
     url: url,
     type: 'POST',
-    dataType: 'html'
+    dataType: 'html',
+    data: data
   }).done(response => {
-    document.getElementById('game-board').innerHTML = response
+    gameBoard.innerHTML = response
     hookUpTileLinks()
     adjustTileSizes()
   }).fail((jqXHR, status, error) => {
