@@ -1,6 +1,6 @@
 (function() {
-  let selectedTile = null
-  let resizeTimeout = false
+  var selectedTile = null
+  var resizeTimeout = false
 
   function hookUpTileLinks() {
     const links = document.querySelectorAll('a.mahjong-tile.selectable')
@@ -11,7 +11,7 @@
 
   function tileCoordinates(tile) {
     const coordinates = tile.getAttribute('data-coords')
-    let [x, y, z] = coordinates.split(',')
+    var [x, y, z] = coordinates.split(',')
     x = parseInt(x, 10)
     y = parseInt(y, 10)
     z = parseInt(z, 10)
@@ -92,8 +92,8 @@
     const imageH = 46
     const imageR = imageW / imageH
 
-    let scaledW = imageW
-    let scaledH = imageH
+    var scaledW = imageW
+    var scaledH = imageH
 
     const constrainedTile = boundedTile(tiles)
     const gameBoard = document.getElementById('game-board')
