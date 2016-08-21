@@ -5,3 +5,7 @@ require 'rails/test_help'
 class ActiveSupport::TestCase
   include FactoryGirl::Syntax::Methods
 end
+
+class ActionController::TestCase
+  include Devise::Test::ControllerHelpers
+end

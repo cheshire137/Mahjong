@@ -1,4 +1,5 @@
 class Game < ApplicationRecord
+  TILES_REGEX = /(\d+:\d+,\d+,\d+;?)+/
   STATES = {:in_progress => 0, :won => 1, :lost => 2}.freeze
 
   belongs_to :user
@@ -126,7 +127,7 @@ class Game < ApplicationRecord
 
   def tile_state
     return unless tiles.present?
-    index = tiles =~ /(\d+:\d+,\d+,\d+;?)+/
+    index = tiles =~ TILES_REGEX
     unless index == 0
       errors.add(:tiles, 'must be in the format id:x,y,z;id:x,y,z;... with ' +
                          'numeric values')
