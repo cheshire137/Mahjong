@@ -4,13 +4,17 @@ class GamesController < ApplicationController
       redirect_to temporary_games_path
       return
     end
-    active_game = Game.for_user(current_user).in_progress.most_recent.first
-    unless active_game
+    @active_games = Game.for_user(current_user).in_progress.most_recent
+    if @active_games.empty?
       active_game = Game.new(layout: Layout.first, user: current_user)
       active_game.initialize_tiles
       active_game.save!
+      redirect_to active_game
+      return
     end
-    redirect_to active_game
+    @completed_count = Game.for_user(current_user).complete.count
+    @win_count = Game.for_user(current_user).won.count
+    @lose_count = Game.for_user(current_user).lost.count
   end
 
   def temporary

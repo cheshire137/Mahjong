@@ -51,4 +51,10 @@ module GamesHelper
       'div'
     end.html_safe
   end
+
+  def percentage(numerator, denominator)
+    return '0%' if denominator == 0
+    percent = (numerator.to_f / denominator) * 100
+    "#{percent.round}%"
+  end
 end

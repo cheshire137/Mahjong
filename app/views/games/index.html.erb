@@ -1,0 +1,16 @@
+<% if @completed_count > 0 %>
+  <section class="section">
+    <div class="container">
+      <p>
+        You have finished <strong><%= @completed_count %></strong>
+        <%= 'game'.pluralize(@completed_count) %>.
+      </p>
+      <p>
+        Won: <%= @win_count %> &mdash; <%= percentage @win_count, @completed_count %>
+      </p>
+      <p>
+        Lost: <%= @lose_count %> &mdash; <%= percentage @lose_count, @completed_count %>
+      </p>
+    </div>
+  </section>
+<% end %>
