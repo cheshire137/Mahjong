@@ -13,6 +13,7 @@ $background-transition: background 0.1s linear;
   position: absolute;
   display: inline-block;
   overflow: hidden;
+  text-align: center;
 
   &.selectable {
     cursor: pointer;
@@ -21,68 +22,40 @@ $background-transition: background 0.1s linear;
   &.set-season {
     .tile-image {
       border: 1px solid #000;
-      border-radius: 1vw;
     }
   }
 
-  &.no-image,
-  &.has-image .tile-image {
+  .tile-image {
+    border-radius: 1vw;
     background-color: #fff;
-  }
-
-  &.no-image {
-    box-shadow: 1px 1px 3px rgba(0,0,0,0.3);
-    padding: 1vw 1vh;
-    border-right: 4px solid #fafafa;
-    border-bottom: 4px solid #fafafa;
+    max-height: 97%;
     -webkit-transition: $background-transition;
     -moz-transition: $background-transition;
     -ms-transition: $background-transition;
     -o-transition: $background-transition;
     transition: $background-transition;
+  }
 
-    &.selectable {
-      &:hover, &:focus {
-        background-color: #EEFAFB;
+  &.selectable {
+    &:hover, &:focus {
+      .tile-image {
+        background-color: #42afe3;
       }
     }
   }
 
-  &.has-image {
-    border-radius: 1vw;
-    text-align: center;
-
-    .tile-image {
-      max-height: 100%;
-      -webkit-transition: $background-transition;
-      -moz-transition: $background-transition;
-      -ms-transition: $background-transition;
-      -o-transition: $background-transition;
-      transition: $background-transition;
-    }
-
-    &.selectable {
-      &:hover, &:focus {
-        .tile-image {
-          background-color: #42afe3;
-        }
-      }
-    }
-  }
-
-  &.is-selected.no-image,
-  &.is-selected.has-image .tile-image {
+  &.is-selected .tile-image {
     background-color: #fce473;
   }
 
   &.is-directly-underneath {
-    &, .tile-image {
+    .tile-image {
       display: none;
     }
   }
 
   &.is-underneath {
-    &, .tile-image {
+    .tile-image {
       background-color: #f9f9f9;
     }
   }
