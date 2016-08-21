@@ -95,7 +95,7 @@ class GamesController < ApplicationController
 
   def current_game
     return @current_game if defined? @current_game
-    game = Game.find_by_param(params[:id])
+    game = current_user.games.find_by_param(params[:id])
     unless game
       redirect_to games_path, alert: "That game does not exist."
       return
