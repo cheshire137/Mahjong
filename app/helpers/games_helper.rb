@@ -9,6 +9,8 @@ module GamesHelper
     end
     if placed_tile.selectable?
       css << " selectable"
+    elsif placed_tile.directly_underneath?
+      css << " is-directly-underneath"
     elsif placed_tile.underneath_another?
       css << " is-underneath"
     end

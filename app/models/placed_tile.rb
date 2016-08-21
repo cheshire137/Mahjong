@@ -33,10 +33,15 @@ class PlacedTile
   # 14,6,3 is underneath 13,7,4
   def underneath_another?
     return @underneath_another if defined? @underneath_another
-    @underneath_another = game.tile?(x, y, z + 1) ||
+    @underneath_another = directly_underneath? ||
         game.tile?(x + 1, y - 1, z + 1) ||
         game.tile?(x - 1, y - 1, z + 1) ||
         game.tile?(x + 1, y + 1, z + 1) ||
         game.tile?(x - 1, y + 1, z + 1)
+  end
+
+  def directly_underneath?
+    return @directly_underneath if defined? @directly_underneath
+    @directly_underneath = game.tile?(x, y, z + 1)
   end
 end

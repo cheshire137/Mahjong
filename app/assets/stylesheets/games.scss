@@ -75,6 +75,12 @@ $background-transition: background 0.1s linear;
     background-color: #fce473;
   }
 
+  &.is-directly-underneath {
+    &, .tile-image {
+      display: none;
+    }
+  }
+
   &.is-underneath {
     &, .tile-image {
       background-color: #f9f9f9;
