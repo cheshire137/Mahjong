@@ -1,16 +1,26 @@
-<h2>Forgot your password?</h2>
+<section class="hero">
+  <div class="hero-body">
+    <div class="container">
+      <h1 class="title">Mahjong / Forgot your password?</h1>
 
-<%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
-  <%= devise_error_messages! %>
+      <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+        <div class="columns">
+          <div class="column is-half">
+            <%= devise_error_messages! %>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true %>
+            <%= f.label :email, class: 'label' %>
+            <div class="control">
+              <%= f.email_field :email, autofocus: true, class: 'input' %>
+            </div>
+
+            <div class="control">
+              <%= f.submit "Send me reset password instructions", class: 'button is-primary' %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
   </div>
-
-  <div class="actions">
-    <%= f.submit "Send me reset password instructions" %>
-  </div>
-<% end %>
+</section>
 
 <%= render "devise/shared/links" %>

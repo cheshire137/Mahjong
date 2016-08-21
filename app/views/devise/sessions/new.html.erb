@@ -3,27 +3,31 @@
     <div class="container">
       <h1 class="title">Mahjong / Log in</h1>
       <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-        <%= f.label :email, class: 'label' %>
-        <p class="control">
-          <%= f.email_field :email, autofocus: true %>
-        </p>
+        <div class="columns">
+          <div class="column is-half">
+            <%= f.label :email, class: 'label' %>
+            <p class="control">
+              <%= f.email_field :email, autofocus: true, class: 'input' %>
+            </p>
 
-        <%= f.label :password, class: 'label' %>
-        <p class="control">
-          <%= f.password_field :password, autocomplete: "off" %>
-        </p>
+            <%= f.label :password, class: 'label' %>
+            <p class="control">
+              <%= f.password_field :password, autocomplete: 'off', class: 'input' %>
+            </p>
 
-        <% if devise_mapping.rememberable? -%>
-          <p class="control">
-            <label class="checkbox">
-              <%= f.check_box :remember_me %>
-              Remember me?
-            </label>
-          </p>
-        <% end -%>
+            <% if devise_mapping.rememberable? -%>
+              <p class="control">
+                <label class="checkbox">
+                  <%= f.check_box :remember_me %>
+                  Remember me?
+                </label>
+              </p>
+            <% end -%>
 
-        <div class="actions">
-          <%= f.submit "Log in", class: 'button is-primary' %>
+            <div class="actions">
+              <%= f.submit "Log in", class: 'button is-primary' %>
+            </div>
+          </div>
         </div>
       <% end %>
     </div>
