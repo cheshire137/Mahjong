@@ -91,25 +91,39 @@ function adjustTileSizes() {
   const imageH = 46
   const imageR = imageW / imageH
 
+  let scaledW = imageW
+  let scaledH = imageH
+
   const constrainedTile = boundedTile(tiles)
-  const rightSibling = tileToRight(constrainedTile, tiles)
-  const belowSibling = tileBelow(constrainedTile, tiles)
+  const gameBoard = document.getElementById('game-board')
 
-  const tileRect = constrainedTile.getBoundingClientRect()
-  const rightRect = rightSibling.getBoundingClientRect()
-  const belowRect = belowSibling.getBoundingClientRect()
-
-  const availableW = rightRect.left - tileRect.left
-  const availableH = belowRect.top - tileRect.top
-  const availableR = availableW / availableH
-  let scaledW = 0
-  let scaledH = 0
-  if (availableR > imageR) {
-    scaledW = (imageW * availableH) / imageH
-    scaledH = availableH
+  if (typeof constrainedTile === 'undefined') {
+    if (gameBoard.hasAttribute('data-tile-width') &&
+        gameBoard.hasAttribute('data-tile-height')) {
+      scaledW = gameBoard.getAttribute('data-tile-width')
+      scaledH = gameBoard.getAttribute('data-tile-height')
+    }
   } else {
-    scaledW = availableW
-    scaledH = (imageH * availableW) / imageW
+    const rightSibling = tileToRight(constrainedTile, tiles)
+    const belowSibling = tileBelow(constrainedTile, tiles)
+
+    const tileRect = constrainedTile.getBoundingClientRect()
+    const rightRect = rightSibling.getBoundingClientRect()
+    const belowRect = belowSibling.getBoundingClientRect()
+
+    const availableW = rightRect.left - tileRect.left
+    const availableH = belowRect.top - tileRect.top
+    const availableR = availableW / availableH
+    if (availableR > imageR) {
+      scaledW = (imageW * availableH) / imageH
+      scaledH = availableH
+    } else {
+      scaledW = availableW
+      scaledH = (imageH * availableW) / imageW
+    }
+
+    gameBoard.setAttribute('data-tile-width', scaledW)
+    gameBoard.setAttribute('data-tile-height', scaledH)
   }
 
   tiles.forEach(tile => {
@@ -177,6 +191,7 @@ function matchTiles(tile1, tile2) {
   }).done(response => {
     document.getElementById('game-board').innerHTML = response
     hookUpTileLinks()
+    adjustTileSizes()
   }).fail((jqXHR, status, error) => {
     console.error('failed to match tiles', tiles, jqXHR, status, error)
   })
