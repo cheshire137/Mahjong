@@ -1,0 +1,10 @@
+<% game.each_tile do |placed_tile| %>
+  <% file = placed_tile.tile.image_file %>
+  <<%= tag = tile_tag(placed_tile) %> class="<%= tile_class(placed_tile, file) %>" style="<%= tile_style(placed_tile) %>">
+    <% if file %>
+      <%= image_tag "tiles/#{file}", class: 'tile-image', alt: placed_tile.tile %>
+    <% else %>
+      <%= placed_tile.tile %>
+    <% end %>
+  </<%= tag %>>
+<% end %>

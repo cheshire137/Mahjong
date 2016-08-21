@@ -53,13 +53,10 @@ const matchTiles = function(tile1, tile2) {
   const url = `${props1.matchUrl}?tiles=${encodeURIComponent(tiles)}`
   $.ajax({
     url: url,
-    type: 'POST'
-  }).done(json => {
-    selectedTile = null
-    tile1.classList.remove('is-selected')
-    tile2.classList.remove('is-selected')
-    tile1.remove()
-    tile2.remove()
+    type: 'POST',
+    dataType: 'html'
+  }).done(response => {
+    document.getElementById('game-board').innerHTML = response
   }).fail((jqXHR, status, error) => {
     console.error('failed to match tiles', tiles, jqXHR, status, error)
   })

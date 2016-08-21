@@ -21,11 +21,20 @@ class GamesController < ApplicationController
     @game.match_tiles(*params[:tiles].split(';'))
     respond_to do |format|
       if @game.save
-        json = {tiles: @game.tiles}
-        format.json { render json: json }
+        format.json {
+          render json: {tiles: @game.tiles}
+        }
+        format.html {
+          render partial: 'games/game_board', locals: {game: @game}
+        }
       else
-        json = {errors: @game.errors.full_messages}
-        format.json { render json: json, status: :unprocessable_entity }
+        format.json {
+          render json: {errors: @game.errors.full_messages},
+                 status: :unprocessable_entity
+        }
+        format.html {
+          render partial: 'games/game_board', locals: {game: @game}
+        }
       end
     end
   end
