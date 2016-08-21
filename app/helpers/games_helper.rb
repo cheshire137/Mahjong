@@ -38,14 +38,6 @@ module GamesHelper
     [x_position, y_position, z_position].join('; ')
   end
 
-  def shuffle_url(game)
-    if user_signed_in?
-      shuffle_game_path(game)
-    else
-      temporary_shuffle_games_path(layout_id: game.layout_id)
-    end
-  end
-
   def tile_tag(placed_tile)
     match_url = if user_signed_in?
       match_game_path(placed_tile.game)
