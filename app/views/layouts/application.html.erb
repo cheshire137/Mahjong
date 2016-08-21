@@ -12,7 +12,7 @@
     <% end %>
     <% if (msg = alert).present? %>
       <div class="notification is-danger"><%= msg %></div>
-    </body>
+    <% end %>
     <%= yield %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </body>
