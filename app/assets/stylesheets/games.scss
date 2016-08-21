@@ -1,20 +1,41 @@
 $background-transition: background 0.1s linear;
 
+.game-board-container {
+  width: 73vw;
+  height: 100vh;
+
+  &, &.wood {
+    background-image: image-url('wood-grain-1.jpg');
+    background-size: cover;
+  }
+}
+
 .game-board {
   position: relative;
   left: 2vw;
   top: 6vh;
-  width: 73vw;
+  width: 100%;
   height: 94vh;
   overflow: hidden;
 }
 
 .game-controls {
   position: absolute;
-  right: 2vw;
-  top: 6vh;
-  width: 21vw;
+  right: 0;
+  top: 0;
+  padding: 6vh 2vw;
+  width: 26vw;
+  min-height: 100vh;
   text-align: center;
+  background-color: #333;
+
+  strong, & {
+    color: #ccc;
+  }
+
+  a:hover, a:focus {
+    color: #fff;
+  }
 }
 
 .mahjong-tile {

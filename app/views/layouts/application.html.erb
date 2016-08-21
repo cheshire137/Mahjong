@@ -5,8 +5,7 @@
     <%= csrf_meta_tags %>
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
   </head>
-
-  <body>
+  <body class="<%= params[:controller] %> <%= params[:action] %>">
     <% if (msg = notice).present? %>
       <div class="notification is-success"><%= msg %></div>
     <% end %>

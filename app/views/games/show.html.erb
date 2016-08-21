@@ -1,5 +1,7 @@
-<div id="game-board" class="game-board" data-shuffle-url="<%= shuffle_game_path(@game) %>">
-  <%= render partial: 'games/game_board', locals: {game: @game} %>
+<div class="game-board-container">
+  <div id="game-board" class="game-board" data-shuffle-url="<%= shuffle_game_path(@game) %>">
+    <%= render partial: 'games/game_board', locals: {game: @game} %>
+  </div>
 </div>
 <div class="game-controls">
   <p>
@@ -12,7 +14,7 @@
   <div id="game-state">
     <%= render partial: 'games/state', locals: {game: @game} %>
   </div>
-  <button type="button" class="button" id="shuffle-tiles-button">
+  <button type="button" class="button is-dark" id="shuffle-tiles-button">
     Shuffle
   </button>
 </div>
