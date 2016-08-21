@@ -7,10 +7,14 @@
   </head>
   <body class="<%= params[:controller] %> <%= params[:action] %>">
     <% if (msg = notice).present? %>
-      <div class="notification is-success"><%= msg %></div>
+      <div class="container">
+        <div class="notification is-success"><%= msg %></div>
+      </div>
     <% end %>
     <% if (msg = alert).present? %>
-      <div class="notification is-danger"><%= msg %></div>
+      <div class="container">
+        <div class="notification is-danger"><%= msg %></div>
+      </div>
     <% end %>
     <%= yield %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
