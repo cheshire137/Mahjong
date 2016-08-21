@@ -48,6 +48,21 @@ class GamesController < ApplicationController
     render partial: 'games/game_board', locals: {game: game}
   end
 
+  def shuffle
+    game = current_game
+    game.shuffle_tiles
+    game.save
+    render partial: 'games/game_board', locals: {game: game}
+  end
+
+  def temporary_shuffle
+    game = Game.new(layout: Layout.find(params[:layout_id]),
+                    tiles: params[:previous_tiles])
+    game.shuffle_tiles
+    session[:tiles] = game.tiles
+    render partial: 'games/game_board', locals: {game: game}
+  end
+
   private
 
   def current_game

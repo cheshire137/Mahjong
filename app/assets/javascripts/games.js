@@ -144,6 +144,12 @@
     })
   }
 
+  function updateGameBoard(html) {
+    document.getElementById('game-board').innerHTML = html
+    hookUpTileLinks()
+    adjustTileSizes()
+  }
+
   function tileProperties(tile) {
     const coordinates = tile.getAttribute('data-coords')
     const category = tile.getAttribute('data-category')
@@ -218,9 +224,7 @@
       dataType: 'html',
       data: data
     }).done(function(response) {
-      gameBoard.innerHTML = response
-      hookUpTileLinks()
-      adjustTileSizes()
+      updateGameBoard(response)
     }).fail(function(jqXHR, status, error) {
       console.error('failed to match tiles', tiles, jqXHR, status, error)
     })
@@ -243,6 +247,33 @@
     selectedTile = tile
   }
 
+  function shuffleTiles() {
+    const gameBoard = document.getElementById('game-board')
+    const shuffleUrl = gameBoard.getAttribute('data-shuffle-url')
+    const data = {}
+    if (gameBoard.hasAttribute('data-tiles')) {
+      data.previous_tiles = gameBoard.getAttribute('data-tiles')
+    }
+    $.ajax({
+      url: shuffleUrl,
+      type: 'POST',
+      dataType: 'html',
+      data: data
+    }).done(function(response) {
+      updateGameBoard(response)
+    }).fail(function(jqXHR, status, error) {
+      console.error('failed to match tiles', tiles, jqXHR, status, error)
+    })
+  }
+
+  function hookUpShuffleButton() {
+    const button = document.getElementById('shuffle-tiles-button')
+    button.addEventListener('click', function(event) {
+      event.preventDefault()
+      shuffleTiles()
+    })
+  }
+
   if (document.getElementById('game-board')) {
     $(function() {
       const csrfToken = document.querySelector('meta[name=csrf-token]').
@@ -250,6 +281,7 @@
       $.ajaxSetup({ headers: { 'X-CSRF-Token': csrfToken } })
       hookUpTileLinks()
       adjustTileSizes()
+      hookUpShuffleButton()
     })
 
     $(window).resize(function() {

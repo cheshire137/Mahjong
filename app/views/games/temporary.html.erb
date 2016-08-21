@@ -1,4 +1,4 @@
-<div id="game-board" class="game-board" data-tiles="<%= @game.tiles %>">
+<div id="game-board" class="game-board" data-tiles="<%= @game.tiles %>" data-shuffle-url="<%= shuffle_url(@game) %>">
   <%= render partial: 'games/game_board', locals: {game: @game} %>
 </div>
 <div class="game-controls">
@@ -7,7 +7,7 @@
     <%= link_to "Sign up", new_user_registration_path %>
   </p>
   <hr>
-  <button type="button" class="button">
+  <button type="button" class="button" id="shuffle-tiles-button">
     Shuffle
   </button>
 </div>

@@ -38,15 +38,23 @@ module GamesHelper
     [x_position, y_position, z_position].join('; ')
   end
 
+  def shuffle_url(game)
+    if user_signed_in?
+      shuffle_game_path(game)
+    else
+      temporary_shuffle_games_path(layout_id: game.layout_id)
+    end
+  end
+
   def tile_tag(placed_tile)
-    url = if user_signed_in?
+    match_url = if user_signed_in?
       match_game_path(placed_tile.game)
     else
       temporary_match_games_path(layout_id: placed_tile.game.layout_id)
     end
     if placed_tile.selectable?
       tile = placed_tile.tile
-      %Q(a href="#" data-tile-id="#{tile.id}" data-set="#{tile.set}" data-suit="#{tile.suit}" data-category="#{tile.category}" data-number="#{tile.number}" data-name="#{tile.name}" data-match-url="#{url}")
+      %Q(a href="#" data-tile-id="#{tile.id}" data-set="#{tile.set}" data-suit="#{tile.suit}" data-category="#{tile.category}" data-number="#{tile.number}" data-name="#{tile.name}" data-match-url="#{match_url}")
     else
       'div'
     end.html_safe

@@ -5,9 +5,11 @@ Rails.application.routes.draw do
     collection do
       get :temporary
       post :temporary_match
+      post :temporary_shuffle
     end
     member do
       post :match
+      post :shuffle
     end
   end
 
