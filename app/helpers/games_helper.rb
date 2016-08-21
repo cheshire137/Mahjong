@@ -29,8 +29,8 @@ module GamesHelper
   def tile_style(placed_tile)
     game = placed_tile.game
 
-    relative_x = ((placed_tile.x - game.min_x).to_f / (game.max_x + 3)) * 100
-    relative_y = ((placed_tile.y - game.min_y).to_f / (game.max_y + 3)) * 100
+    relative_x = (placed_tile.x.to_f / (game.max_x + 3)) * 100
+    relative_y = (placed_tile.y.to_f / (game.max_y + 3)) * 100
 
     x_position = "left: #{relative_x}%"
     y_position = "top: #{relative_y}%"
