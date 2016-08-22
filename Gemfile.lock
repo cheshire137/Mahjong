@@ -65,10 +65,6 @@ GEM
     globalid (0.3.7)
       activesupport (>= 4.1.0)
     i18n (0.7.0)
-    inline_svg (0.10.0)
-      activesupport (>= 4.0)
-      loofah (>= 2.0)
-      nokogiri (~> 1.6)
     jbuilder (2.6.0)
       activesupport (>= 3.0.0, < 5.1)
       multi_json (~> 1.2)
@@ -178,7 +174,6 @@ DEPENDENCIES
   devise (~> 4.2.0)
   factory_girl_rails (~> 4.7.0)
   font-awesome-rails (~> 4.6.3.1)
-  inline_svg (~> 0.10.0)
   jbuilder (~> 2.5)
   jquery-rails
   listen (~> 3.0.5)
