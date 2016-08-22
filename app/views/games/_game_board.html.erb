@@ -2,7 +2,7 @@
   <% file = placed_tile.tile.image_file %>
   <<%= tag = tile_tag(placed_tile) %> data-coords="<%= placed_tile.coordinates %>" class="<%= tile_class(placed_tile, file) %>" style="<%= tile_style(placed_tile) %>">
     <% if file %>
-      <%= inline_svg "tiles/#{file}", class: 'tile-image', size: '100%' %>
+      <%= image_tag "tiles/#{file}", class: 'tile-image', alt: placed_tile.tile %>
     <% else %>
       <%= placed_tile.tile %>
     <% end %>
