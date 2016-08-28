@@ -1,6 +1,19 @@
 require 'test_helper'
 
 class GameTest < ActiveSupport::TestCase
+  def find_matching_tiles(game)
+    tiles = game.tiles.split(';')
+    tile1 = tiles.sample
+    tile1_id = tile1.split(':').first
+    tile2 = tiles.detect { |t| t != tile1 && t.split(':').first == tile1_id }
+    while tile2.nil?
+      tile1 = tiles.sample
+      tile1_id = tile1.split(':').first
+      tile2 = tiles.detect { |t| t != tile1 && t.split(':').first == tile1_id }
+    end
+    [tile1, tile2]
+  end
+
   test 'requires a user' do
     game = Game.new
     refute game.valid?
@@ -175,15 +188,29 @@ class GameTest < ActiveSupport::TestCase
   test 'match_tiles removes a valid match from tiles list' do
     game = build(:game)
     game.initialize_tiles
-    tiles = game.tiles.split(';')
-    tile1 = tiles.first
-    tile1_id = tile1.split(':').first
-    tile2 = tiles.detect { |t| t != tile1 && t.split(':').first == tile1_id }
+    tile1, tile2 = find_matching_tiles(game)
+    assert tile1 && tile2, "Could not find two matching tiles in #{game.tiles}"
 
     assert game.match_tiles(tile1, tile2)
     refute game.tiles.include?(tile1)
     refute game.tiles.include?(tile2)
     assert_equal :in_progress, game.state
+  end
+
+  test 'tile_count decrements after each match' do
+    game = build(:game)
+    game.initialize_tiles
+    before_count = game.tile_count
+
+    tile1, tile2 = find_matching_tiles(game)
+    assert tile1 && tile2, "Could not find two matching tiles in #{game.tiles}"
+    assert game.match_tiles(tile1, tile2)
+    assert_equal before_count - 2, game.tile_count
+
+    tile3, tile4 = find_matching_tiles(game)
+    assert tile3 && tile4, "Could not find two matching tiles in #{game.tiles}"
+    assert game.match_tiles(tile3, tile4)
+    assert_equal before_count - 4, game.tile_count
   end
 
   test 'match_tiles will not remove an invalid match from tiles list' do
