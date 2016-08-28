@@ -249,6 +249,21 @@
     selectedTile = tile
   }
 
+  function getUpdatedState() {
+    const gameState = document.getElementById('game-state')
+    const stateUrl = gameState.getAttribute('data-url')
+    $.ajax({
+      url: stateUrl,
+      type: 'GET',
+      dataType: 'html'
+    }).done(function(stateResponse) {
+      gameState.innerHTML = stateResponse
+      hookUpShuffleButton()
+    }).fail(function(jqXHR, status, error) {
+      console.error('failed to update game state', jqXHR, status, error)
+    })
+  }
+
   function shuffleTiles() {
     const gameBoard = document.getElementById('game-board')
     const shuffleUrl = gameBoard.getAttribute('data-shuffle-url')
@@ -263,6 +278,7 @@
       data: data
     }).done(function(response) {
       updateGameBoard(response)
+      getUpdatedState()
     }).fail(function(jqXHR, status, error) {
       console.error('failed to shuffle tiles', tiles, jqXHR, status, error)
     })
@@ -270,6 +286,9 @@
 
   function hookUpShuffleButton() {
     const button = document.getElementById('shuffle-tiles-button')
+    if (!button) {
+      return
+    }
     button.addEventListener('click', function(event) {
       event.preventDefault()
       shuffleTiles()
