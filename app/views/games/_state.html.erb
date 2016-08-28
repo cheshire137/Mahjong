@@ -8,18 +8,29 @@
   </div>
 <% end %>
 <% if game.in_progress? %>
-  <% if game.has_shuffles_remaining? %>
-    <button type="button" class="button is-dark" id="shuffle-tiles-button">
-      Shuffle
-    </button>
-    <span class="help">
-      <%= pluralize(game.shuffles_remaining, 'shuffle') %> remaining
-    </span>
-  <% else %>
-    <button type="button" class="button is-dark is-disabled" disabled="disabled">
-      Shuffle
-    </button>
-    <span class="help">Shuffle limit has been reached</span>
-  <% end %>
+  <div class="columns">
+    <div class="column has-text-centered">
+      <% if game.has_shuffles_remaining? %>
+        <button type="button" class="button is-dark" id="shuffle-tiles-button">
+          Shuffle
+        </button>
+        <span class="help">
+          <%= pluralize(game.shuffles_remaining, 'shuffle') %> remaining
+        </span>
+      <% else %>
+        <button type="button" class="button is-dark is-disabled" disabled="disabled">
+          Shuffle
+        </button>
+        <span class="help">Shuffle limit reached</span>
+      <% end %>
+    </div>
+    <% if game.original_tiles.present? %>
+      <div class="column has-text-centered">
+        <button type="button" class="button is-dark" id="reset-game-button">
+          Reset
+        </button>
+      </div>
+    <% end %>
+  </div>
   <hr>
 <% end %>
