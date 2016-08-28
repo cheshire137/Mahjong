@@ -12,10 +12,12 @@
     Grass
   </label>
 </p>
-<hr>
-<p>
-  <%= link_to games_path do %>
-    <i class="fa fa-chevron-left"></i>
-    Back
-  <% end %>
-</p>
+<% if user_signed_in? %>
+  <hr>
+  <p>
+    <%= link_to games_path do %>
+      <i class="fa fa-chevron-left"></i>
+      Back
+    <% end %>
+  </p>
+<% end %>
