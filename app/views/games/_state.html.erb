@@ -6,8 +6,7 @@
   <div class="notification is-warning">
     Aww, better luck next time.
   </div>
-<% end %>
-<% if game.in_progress? %>
+<% elsif game.in_progress? %>
   <div class="columns">
     <div class="column has-text-centered">
       <% if game.has_shuffles_remaining? %>
@@ -32,5 +31,8 @@
       </div>
     <% end %>
   </div>
+  <p>
+    <%= pluralize(game.tile_count, 'tile') %> remaining
+  </p>
   <hr>
 <% end %>
