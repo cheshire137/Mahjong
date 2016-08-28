@@ -61,7 +61,7 @@ class Game < ApplicationRecord
       tile_counts[tile.id] += 1
       tile_positions << "#{tile.id}:#{coordinates}"
     end
-    self.tiles = tile_positions.join(';')
+    self.original_tiles = self.tiles = tile_positions.join(';')
   end
 
   def tile_count

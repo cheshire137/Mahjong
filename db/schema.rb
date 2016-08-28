@@ -10,19 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160828165854) do
+ActiveRecord::Schema.define(version: 20160828173858) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "games", force: :cascade do |t|
-    t.integer  "user_id",                    null: false
-    t.text     "tiles",         default: "", null: false
-    t.integer  "state",         default: 0,  null: false
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
-    t.integer  "layout_id",                  null: false
-    t.integer  "shuffle_count", default: 0,  null: false
+    t.integer  "user_id",                     null: false
+    t.text     "tiles",          default: "", null: false
+    t.integer  "state",          default: 0,  null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+    t.integer  "layout_id",                   null: false
+    t.integer  "shuffle_count",  default: 0,  null: false
+    t.text     "original_tiles", default: "", null: false
     t.index ["layout_id"], name: "index_games_on_layout_id", using: :btree
     t.index ["user_id"], name: "index_games_on_user_id", using: :btree
   end

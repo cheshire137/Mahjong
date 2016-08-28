@@ -120,15 +120,16 @@ class GameTest < ActiveSupport::TestCase
     refute game.tile?(0, 7, 1)
   end
 
-  test 'initialize_tiles populates tiles' do
+  test 'initialize_tiles populates tiles and original_tiles' do
     game = build(:game)
     assert game.tiles.blank?
 
     game.initialize_tiles
     refute game.tiles.blank?
+    assert_equal game.tiles, game.original_tiles
   end
 
-  test 'does not change tiles on update' do
+  test 'does not change tiles or original_tiles on update' do
     game = build(:game)
     game.initialize_tiles
     game.save!
@@ -137,6 +138,7 @@ class GameTest < ActiveSupport::TestCase
     game.updated_at = 1.day.ago
     assert game.save
     assert_equal before_value, game.reload.tiles
+    assert_equal before_value, game.original_tiles
   end
 
   test 'max coordinates from all tiles' do
@@ -240,6 +242,7 @@ class GameTest < ActiveSupport::TestCase
     refute game.tiles.blank?
     assert game.valid?
     refute_equal before_tiles, game.tiles
+    assert_equal before_tiles, game.original_tiles
     assert_equal 1, game.shuffle_count
 
     tiles_after = {}
