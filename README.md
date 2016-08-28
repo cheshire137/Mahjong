@@ -21,7 +21,7 @@ You'll need Ruby 2+ and PostgreSQL.
 ## How to Test
 
     bundle install
-    bundle exec rake test
+    RAILS_ENV=test bundle exec rake test
 
 ## How Tiles are Positioned
 
