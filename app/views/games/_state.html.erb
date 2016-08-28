@@ -24,7 +24,7 @@
         <span class="help">Shuffle limit reached</span>
       <% end %>
     </div>
-    <% if game.original_tiles.present? %>
+    <% if game.original_tiles.present? && game.tiles != game.original_tiles %>
       <div class="column has-text-centered">
         <button type="button" class="button is-dark" id="reset-game-button">
           Reset
