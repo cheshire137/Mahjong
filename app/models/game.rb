@@ -8,6 +8,8 @@ class Game < ApplicationRecord
   validates :user, presence: true
   validates :layout, presence: true
   validates :tiles, presence: true, allow_nil: false, allow_blank: true
+  validates :shuffle_count, presence: true, numericality: {only_integer: true,
+                                                           greater_than: -1}
   validate :tile_state
 
   scope :in_progress, ->{ where(state: STATES[:in_progress]) }

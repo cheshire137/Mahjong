@@ -7,6 +7,16 @@ class GameTest < ActiveSupport::TestCase
     assert_includes game.errors.keys, :user
   end
 
+  test 'defaults to 0 shuffle count' do
+    assert_equal 0, Game.new.shuffle_count
+  end
+
+  test 'requires >=0 shuffle count' do
+    game = Game.new(shuffle_count: -1)
+    refute game.valid?
+    assert_includes game.errors.keys, :shuffle_count
+  end
+
   test 'allows blank tiles string' do
     game = Game.new(tiles: '')
     game.valid?
