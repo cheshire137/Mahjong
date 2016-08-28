@@ -50,10 +50,9 @@ class GamesController < ApplicationController
     session[:shuffle_count] = shuffle_count
     if (tiles = session[:tiles]).present?
       @game.tiles = tiles
-      @game.original_tiles = session[:original_tiles]
     else
       @game.initialize_tiles
-      session[:original_tiles] = session[:tiles] = @game.tiles
+      session[:tiles] = @game.tiles
     end
   end
 
@@ -78,8 +77,7 @@ class GamesController < ApplicationController
   def temporary_match
     game = Game.new(layout: Layout.find(params[:layout_id]),
                     tiles: params[:previous_tiles],
-                    shuffle_count: session[:shuffle_count],
-                    original_tiles: session[:original_tiles])
+                    shuffle_count: session[:shuffle_count])
     game.match_tiles(*params[:tiles].split(';'))
     session[:tiles] = game.tiles
     render partial: 'games/game_board', locals: {game: game}
@@ -97,8 +95,7 @@ class GamesController < ApplicationController
   def temporary_shuffle
     game = Game.new(layout: Layout.find(params[:layout_id]),
                     tiles: params[:previous_tiles],
-                    shuffle_count: session[:shuffle_count],
-                    original_tiles: session[:original_tiles])
+                    shuffle_count: session[:shuffle_count])
     if game.has_shuffles_remaining?
       game.shuffle_tiles
       session[:shuffle_count] = game.shuffle_count
@@ -114,8 +111,7 @@ class GamesController < ApplicationController
   def temporary_state
     game = Game.new(layout: Layout.find(session[:layout_id]),
                     tiles: session[:tiles],
-                    shuffle_count: session[:shuffle_count],
-                    original_tiles: session[:original_tiles])
+                    shuffle_count: session[:shuffle_count])
     render partial: 'games/state', locals: {game: game}
   end
 
@@ -123,17 +119,6 @@ class GamesController < ApplicationController
     game = current_game
     game.reset
     game.save
-    render partial: 'games/game_board', locals: {game: game}
-  end
-
-  def temporary_reset
-    game = Game.new(layout: Layout.find(session[:layout_id]),
-                    tiles: session[:tiles],
-                    original_tiles: session[:original_tiles],
-                    shuffle_count: session[:shuffle_count])
-    game.reset
-    session[:tiles] = game.tiles
-    session[:shuffle_count] = game.shuffle_count
     render partial: 'games/game_board', locals: {game: game}
   end
 
