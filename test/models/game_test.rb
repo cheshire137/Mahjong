@@ -255,4 +255,21 @@ class GameTest < ActiveSupport::TestCase
       refute_equal tiles_before[id], tiles_after[id]
     end
   end
+
+  test 'reset starts the game over again' do
+    game = build(:game)
+    game.initialize_tiles
+    before_tiles = game.tiles
+
+    game.shuffle_tiles
+    game.shuffle_tiles
+
+    assert_equal 2, game.shuffle_count
+    refute_equal before_tiles, game.tiles
+
+    game.reset
+
+    assert_equal 0, game.shuffle_count
+    assert_equal before_tiles, game.tiles
+  end
 end

@@ -47,6 +47,11 @@ class Game < ApplicationRecord
     MAX_SHUFFLES - shuffle_count
   end
 
+  def reset
+    self.tiles = original_tiles
+    self.shuffle_count = 0
+  end
+
   def initialize_tiles
     return unless layout
     tiles = Tile.all
