@@ -1,7 +1,8 @@
 class GamesController < ApplicationController
   IMAGES = %w(wood stones grass).freeze
 
-  before_action :authenticate_user!, only: [:create, :shuffle, :show, :match]
+  before_action :authenticate_user!, only: [:create, :shuffle, :show, :match,
+                                            :state]
 
   def index
     unless user_signed_in?
@@ -42,9 +43,11 @@ class GamesController < ApplicationController
     else
       Layout.first
     end
+    shuffle_count = session[:shuffle_count] || 0
     @image = current_image
-    @game = Game.new(layout: layout)
+    @game = Game.new(layout: layout, shuffle_count: shuffle_count)
     session[:layout_id] = @game.layout_id
+    session[:shuffle_count] = shuffle_count
     if (tiles = session[:tiles]).present?
       @game.tiles = tiles
     else
@@ -73,7 +76,8 @@ class GamesController < ApplicationController
 
   def temporary_match
     game = Game.new(layout: Layout.find(params[:layout_id]),
-                    tiles: params[:previous_tiles])
+                    tiles: params[:previous_tiles],
+                    shuffle_count: session[:shuffle_count])
     game.match_tiles(*params[:tiles].split(';'))
     session[:tiles] = game.tiles
     render partial: 'games/game_board', locals: {game: game}
@@ -90,10 +94,25 @@ class GamesController < ApplicationController
 
   def temporary_shuffle
     game = Game.new(layout: Layout.find(params[:layout_id]),
-                    tiles: params[:previous_tiles])
-    game.shuffle_tiles if game.has_shuffles_remaining?
+                    tiles: params[:previous_tiles],
+                    shuffle_count: session[:shuffle_count])
+    if game.has_shuffles_remaining?
+      game.shuffle_tiles
+      session[:shuffle_count] = game.shuffle_count
+    end
     session[:tiles] = game.tiles
     render partial: 'games/game_board', locals: {game: game}
+  end
+
+  def state
+    render partial: 'games/state', locals: {game: current_game}
+  end
+
+  def temporary_state
+    game = Game.new(layout: Layout.find(session[:layout_id]),
+                    tiles: session[:tiles],
+                    shuffle_count: session[:shuffle_count])
+    render partial: 'games/state', locals: {game: game}
   end
 
   private
