@@ -50,6 +50,7 @@ class Game < ApplicationRecord
   def reset
     self.tiles = original_tiles
     self.shuffle_count = 0
+    self.state = :in_progress
   end
 
   def initialize_tiles

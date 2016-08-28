@@ -266,10 +266,12 @@ class GameTest < ActiveSupport::TestCase
 
     assert_equal 2, game.shuffle_count
     refute_equal before_tiles, game.tiles
+    assert_equal :in_progress, game.state
 
     game.reset
 
     assert_equal 0, game.shuffle_count
     assert_equal before_tiles, game.tiles
+    assert_equal :in_progress, game.state
   end
 end
