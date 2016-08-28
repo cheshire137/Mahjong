@@ -8,11 +8,13 @@ Rails.application.routes.draw do
       post :temporary_shuffle
       get :temporary_state
       get :image
+      post :temporary_reset
     end
     member do
       post :match
       post :shuffle
       get :state
+      post :reset
     end
   end
 
