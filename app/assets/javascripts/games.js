@@ -149,6 +149,7 @@
     document.getElementById('game-board').innerHTML = html
     hookUpTileLinks()
     adjustTileSizes()
+    getUpdatedState()
   }
 
   function tileProperties(tile) {
@@ -259,6 +260,7 @@
     }).done(function(stateResponse) {
       gameState.innerHTML = stateResponse
       hookUpShuffleButton()
+      hookUpResetButton()
     }).fail(function(jqXHR, status, error) {
       console.error('failed to update game state', jqXHR, status, error)
     })
@@ -278,9 +280,34 @@
       data: data
     }).done(function(response) {
       updateGameBoard(response)
-      getUpdatedState()
     }).fail(function(jqXHR, status, error) {
       console.error('failed to shuffle tiles', tiles, jqXHR, status, error)
+    })
+  }
+
+  function resetGame() {
+    const gameBoard = document.getElementById('game-board')
+    const resetUrl = gameBoard.getAttribute('data-reset-url')
+    $.ajax({
+      url: resetUrl,
+      type: 'POST',
+      dataType: 'html'
+    }).done(function(response) {
+      updateGameBoard(response)
+    }).fail(function(jqXHR, status, error) {
+      console.error('failed to shuffle tiles', tiles, jqXHR, status, error)
+    })
+  }
+
+  function hookUpResetButton() {
+    const button = document.getElementById('reset-game-button')
+    if (!button) {
+      return
+    }
+    button.addEventListener('click', function(event) {
+      if (window.confirm('Are you sure you want to reset your game?')) {
+        resetGame()
+      }
     })
   }
 
@@ -320,6 +347,7 @@
       adjustTileSizes()
       hookUpShuffleButton()
       hookUpImageChangeRadios()
+      hookUpResetButton()
     })
 
     $(window).resize(function() {
