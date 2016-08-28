@@ -43,6 +43,10 @@ class Game < ApplicationRecord
     shuffle_count < MAX_SHUFFLES
   end
 
+  def shuffles_remaining
+    MAX_SHUFFLES - shuffle_count
+  end
+
   def initialize_tiles
     return unless layout
     tiles = Tile.all

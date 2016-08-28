@@ -214,6 +214,12 @@ class GameTest < ActiveSupport::TestCase
     refute Game.new(shuffle_count: Game::MAX_SHUFFLES).has_shuffles_remaining?
   end
 
+  test 'shuffles_remaining returns count of shuffles left in game' do
+    assert_equal Game::MAX_SHUFFLES, Game.new.shuffles_remaining
+    assert_equal 1, Game.new(shuffle_count: Game::MAX_SHUFFLES - 1).
+        shuffles_remaining
+  end
+
   test 'shuffle_tiles reorders tiles' do
     game = build(:game)
     game.initialize_tiles
