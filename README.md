@@ -8,8 +8,15 @@ An implementation of [Mahjong solitaire](https://en.wikipedia.org/wiki/Mahjong_s
 
 You'll need Ruby 2+ and PostgreSQL.
 
+### First Time Setup
+
     bundle install
     bundle exec rake db:create db:migrate
+    bundle exec rake db:seed
+
+### Every Time
+
+    bundle exec rails s
 
 ## How to Test
 
