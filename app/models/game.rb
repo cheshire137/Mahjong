@@ -1,6 +1,7 @@
 class Game < ApplicationRecord
   TILES_REGEX = /(\d+:\d+,\d+,\d+;?)+/
   STATES = {:in_progress => 0, :won => 1, :lost => 2}.freeze
+  MAX_SHUFFLES = 5
 
   belongs_to :user
   belongs_to :layout
@@ -164,6 +165,7 @@ class Game < ApplicationRecord
       "#{tile_id}:#{coordinates}"
     end
     self.tiles = tile_positions.join(';')
+    self.shuffle_count += 1
     tiles_by_id = Tile.where(id: tile_ids.uniq).map { |t| [t.id, t] }.to_h
     @placed_tiles = coordinates_and_tiles.map do |coordinates, tile_id|
       PlacedTile.new(tiles_by_id[tile_id], coordinates: coordinates,

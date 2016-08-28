@@ -218,10 +218,13 @@ class GameTest < ActiveSupport::TestCase
       tiles_before[id] = coords_list.sort
     end
 
+    assert_equal 0, game.shuffle_count
+
     game.shuffle_tiles
     refute game.tiles.blank?
     assert game.valid?
     refute_equal before_tiles, game.tiles
+    assert_equal 1, game.shuffle_count
 
     tiles_after = {}
     game.each_tile do |placed_tile|
