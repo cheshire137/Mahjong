@@ -204,6 +204,16 @@ class GameTest < ActiveSupport::TestCase
     assert_equal :in_progress, game.state
   end
 
+  test 'has_shuffles_remaining? returns true when not at limit' do
+    assert Game.new.has_shuffles_remaining?
+    assert Game.new(shuffle_count: Game::MAX_SHUFFLES - 1).
+        has_shuffles_remaining?
+  end
+
+  test 'has_shuffles_remaining? returns false when at limit' do
+    refute Game.new(shuffle_count: Game::MAX_SHUFFLES).has_shuffles_remaining?
+  end
+
   test 'shuffle_tiles reorders tiles' do
     game = build(:game)
     game.initialize_tiles

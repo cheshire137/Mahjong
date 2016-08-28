@@ -81,7 +81,7 @@ class GamesController < ApplicationController
 
   def shuffle
     game = current_game
-    if game.shuffle_count < Game::MAX_SHUFFLES
+    if game.has_shuffles_remaining?
       game.shuffle_tiles
       game.save
     end
@@ -91,7 +91,7 @@ class GamesController < ApplicationController
   def temporary_shuffle
     game = Game.new(layout: Layout.find(params[:layout_id]),
                     tiles: params[:previous_tiles])
-    game.shuffle_tiles if game.shuffle_count < Game::MAX_SHUFFLES
+    game.shuffle_tiles if game.has_shuffles_remaining?
     session[:tiles] = game.tiles
     render partial: 'games/game_board', locals: {game: game}
   end
