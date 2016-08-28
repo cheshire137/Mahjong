@@ -7,3 +7,19 @@
     Aww, better luck next time.
   </div>
 <% end %>
+<% if game.in_progress? %>
+  <% if game.has_shuffles_remaining? %>
+    <button type="button" class="button is-dark" id="shuffle-tiles-button">
+      Shuffle
+    </button>
+    <span class="help">
+      <%= pluralize(game.shuffles_remaining, 'shuffle') %> remaining
+    </span>
+  <% else %>
+    <button type="button" class="button is-dark is-disabled" disabled="disabled">
+      Shuffle
+    </button>
+    <span class="help">Shuffle limit has been reached</span>
+  <% end %>
+  <hr>
+<% end %>
