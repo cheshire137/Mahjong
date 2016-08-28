@@ -116,3 +116,16 @@ $background-transition: background 0.1s linear;
     padding: 8px 10px;
   }
 }
+
+.game-list-item {
+  + .game-list-item {
+    margin-top: 10px;
+  }
+}
+
+.game-link {
+  .help {
+    color: #999;
+    margin-top: 0;
+  }
+}

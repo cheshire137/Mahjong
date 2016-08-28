@@ -14,8 +14,13 @@
         <h2 class="subtitle">Continue Playing</h2>
         <ul>
           <% @active_games.each do |game| %>
-            <li>
-              <%= link_to game, game %>
+            <li class="game-list-item">
+              <%= link_to game, class: 'game-link' do %>
+                <%= game %>
+                <span class="help">
+                  <%= pluralize game.shuffles_remaining, 'shuffle' %> left
+                </span>
+              <% end %>
             </li>
           <% end %>
         </ul>
