@@ -4,13 +4,15 @@
   </div>
 </div>
 <div class="game-controls">
-  <p>
-    <%= link_to "Log in", new_user_session_path %> &middot;
-    <%= link_to "Sign up", new_user_registration_path %>
-  </p>
-  <hr>
   <div id="game-state" class="game-state" data-url="<%= temporary_state_games_path %>">
     <%= render partial: 'games/state', locals: {game: @game} %>
   </div>
   <%= render partial: 'games/controls', locals: {game: @game, image: @image} %>
+  <div class="auth-controls has-text-centered">
+    <div class="content">
+      <p>Sign in to have multiple games in progress and see win/loss stats.</p>
+    </div>
+    <%= link_to "Log in", new_user_session_path %> &middot;
+    <%= link_to "Sign up", new_user_registration_path %>
+  </div>
 </div>

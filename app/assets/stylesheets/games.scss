@@ -51,6 +51,13 @@ $background-transition: background 0.1s linear;
   }
 }
 
+.auth-controls {
+  position: absolute;
+  bottom: 15px;
+  right: 5%;
+  width: 90%;
+}
+
 .mahjong-tile {
   position: absolute;
   display: inline-block;
