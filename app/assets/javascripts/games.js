@@ -86,13 +86,13 @@
     const board = document.getElementById('game-board')
     const maxWidth = window.innerWidth - 362
     const maxHeight = window.innerHeight - 26
-    const idealWidth = maxHeight * 1.6
+    const idealWidth = maxHeight * 1.7
     if (idealWidth <= maxWidth) {
       board.style.width = `${idealWidth}px`
       board.style.height = `${maxHeight}px`
     } else {
       board.style.width = `${maxWidth}px`
-      board.style.height = `${maxWidth * 0.6}px`
+      board.style.height = `${maxWidth * 0.7}px`
     }
   }
 
