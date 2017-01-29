@@ -82,6 +82,20 @@
     return boundedTiles[0]
   }
 
+  function adjustBoardSize() {
+    const board = document.getElementById('game-board')
+    const maxWidth = window.innerWidth - 362
+    const maxHeight = window.innerHeight - 26
+    const idealWidth = maxHeight * 1.6
+    if (idealWidth <= maxWidth) {
+      board.style.width = `${idealWidth}px`
+      board.style.height = `${maxHeight}px`
+    } else {
+      board.style.width = `${maxWidth}px`
+      board.style.height = `${maxWidth * 0.6}px`
+    }
+  }
+
   function adjustTileSizes() {
     clearTimeout(resizeTimeout)
     const tiles = Array.from(document.querySelectorAll('.mahjong-tile.is-visible'))
@@ -142,6 +156,11 @@
 
       tile.classList.add('is-sized')
     })
+  }
+
+  function adjustBoardAndTileSizes() {
+    adjustBoardSize()
+    adjustTileSizes()
   }
 
   function updateGameBoard(html) {
@@ -344,7 +363,7 @@
           getAttribute('content')
       $.ajaxSetup({ headers: { 'X-CSRF-Token': csrfToken } })
       hookUpTileLinks()
-      adjustTileSizes()
+      adjustBoardAndTileSizes()
       hookUpShuffleButton()
       hookUpImageChangeRadios()
       hookUpResetButton()
@@ -354,7 +373,7 @@
       if (resizeTimeout) {
         clearTimeout(resizeTimeout)
       }
-      resizeTimeout = setTimeout(adjustTileSizes, 200)
+      resizeTimeout = setTimeout(adjustBoardAndTileSizes, 200)
     })
   }
 })()
