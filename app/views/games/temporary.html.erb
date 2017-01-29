@@ -1,5 +1,5 @@
 <div class="game-board-container <%= @image %>">
-  <div id="game-board" class="game-board" data-tiles="<%= @game.tiles %>" data-shuffle-url="<%= temporary_shuffle_games_path(layout_id: @game.layout_id) %>">
+  <div id="game-board" class="game-board" data-tiles="<%= @game.tiles %>" data-shuffle-url="<%= temporary_shuffle_games_path(layout_id: @game.layout_id) %>" data-new-game-url="<%= temporary_new_games_path(layout_id: @game.layout_id) %>">
     <%= render partial: 'games/game_board', locals: {game: @game} %>
   </div>
 </div>

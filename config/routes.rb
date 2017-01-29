@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   resources :games, only: [:index, :show, :create] do
     collection do
       get :temporary
+      get :temporary_new
       post :temporary_match
       post :temporary_shuffle
       get :temporary_state

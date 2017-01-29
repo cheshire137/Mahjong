@@ -56,6 +56,14 @@ class GamesController < ApplicationController
     end
   end
 
+  def temporary_new
+    session[:layout_id] = params[:layout_id]
+    session[:shuffle_count] = nil
+    session[:tiles] = nil
+
+    redirect_to temporary_games_path
+  end
+
   def image
     image = params[:image]
     session[:image] = image if IMAGES.include?(image)
