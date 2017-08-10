@@ -53,4 +53,4 @@ gem 'devise', '~> 4.2.0'
 gem "bulma-rails", "~> 0.0.28"
 gem 'font-awesome-rails', '~> 4.6.3.1'
 
-ruby "2.2.3"
+ruby "2.2.5"
