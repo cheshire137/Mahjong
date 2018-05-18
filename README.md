@@ -1,8 +1,6 @@
 # Mahjong
 
-[![Build status](https://travis-ci.org/cheshire137/Mahjong.svg?branch=master)](https://travis-ci.org/cheshire137/Mahjong)
-
-An implementation of [Mahjong solitaire](https://en.wikipedia.org/wiki/Mahjong_solitaire) as a Rails app. You can [try it out](https://mahjong-rails.herokuapp.com/) on my Heroku app.
+An implementation of [Mahjong solitaire](https://en.wikipedia.org/wiki/Mahjong_solitaire) as a Rails app.
 
 ## How to Develop
 
